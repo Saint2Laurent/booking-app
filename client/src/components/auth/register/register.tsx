@@ -8,6 +8,7 @@ import './register-transitions.scss'
 import logo from '../../../assets/images/logo2.svg'
 import style from '../auth.module.scss'
 import tag from '../../../assets/images/tag.svg'
+import '../auth.scss'
 
 const Register = () => {
     const [initView, setInitView] = useState(true)
@@ -41,11 +42,11 @@ const Register = () => {
                             </Row>
                             <div className={style.slideContainer} ref={sliderRef}>
                                 <CSSTransition appear timeout={600} in={initView} classNames='swapViews'>
-                                    <RegisterEmail swapView={swapView} setMail={setMail} />
+                                    <RegisterInfo initView={initView} mail={mail} />
 
                                 </CSSTransition>
                                 <CSSTransition timeout={900} in={!initView} classNames={'swapViews'}>
-                                    <RegisterInfo initView={initView} mail={mail} />
+                                    <RegisterEmail swapView={swapView} setMail={setMail} />
 
                                 </CSSTransition>
                             </div>

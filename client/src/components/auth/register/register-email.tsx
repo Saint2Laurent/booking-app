@@ -22,17 +22,15 @@ export const RegisterEmail: React.FC<RegisterEmailProps> = ({swapView, setMail, 
     const [mailValidState, setMailValidState] = useState<typeof ValidateStatuses[number]>("");
     const [validationTimeout, setValidationTimeout] = useState()
 
-    const mailRef = useRef<any>(null)
     const {getFieldDecorator, setFieldsValue, isFieldTouched, getFieldsValue} = form;
-
+    const mailValidation = isMailValid(getFieldsValue().mail)
 
     const nextStep = () => {
-        setMail(email)
+        setMail(getFieldsValue().mail)
         swapView()
     }
 
 
-    const mailValidation = isMailValid(getFieldsValue().mail)
 
     console.log(mailValidation)
 
@@ -61,7 +59,7 @@ export const RegisterEmail: React.FC<RegisterEmailProps> = ({swapView, setMail, 
                 <Row className={`m-0`}>
                     <Form.Item hasFeedback validateStatus={mailValidState} help={isFieldTouched('mail') ? mailValidation.errorMessage : ''} className={'mb-2'}>
                         {getFieldDecorator('mail')(
-                            <Input ref={mailRef} onChange={handleMailChange} className={style.authInput} placeholder="Το email σας" />
+                            <Input onChange={handleMailChange} className={style.authInput} placeholder="Το email σας" />
                         )}
                     </Form.Item>
                 </Row>
@@ -71,7 +69,7 @@ export const RegisterEmail: React.FC<RegisterEmailProps> = ({swapView, setMail, 
                     </p>
                 </Row>
                 <Row className="mt-5">
-                    <Button htmlType={'submit'} block className={style.inputButton} onClick={nextStep} disabled={!mailValidation.isValid}>Σύνεχεια</Button>
+                    <Button htmlType={'submit'} block className={`${style.inputButton} auth-disabled`} type={'primary'} onClick={nextStep} disabled={!mailValidation.isValid}>Σύνεχεια</Button>
                 </Row>
                 <Row className={'text-center'}>
                     Ή

@@ -1,0 +1,21 @@
+.ant-col.ant-form-item-label{
+  line-height: 1rem ;
+}
+
+.ant-form-explain{
+  font-size: .8rem !important;
+  text-align: left;
+}
+
+.ant-btn-primary[disabled].auth-disabled{
+  background-color: #2a45ff !important;
+  color: #d7d7d7;
+}
+
+.ant-btn-primary[disabled].auth-disabled:hover{
+  color: #cbcbcb;
+}
+
+.ant-form-item-required::before{
+  display: none !important;
+}
