@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {RefObject, useEffect, useRef, useState} from 'react';
 import style from "../auth.module.scss";
 import {Button, Input, Row, Col, Form} from "antd";
 import FormItem from "antd/es/form/FormItem";
@@ -6,6 +6,7 @@ import googleIcon from "../../../assets/images/icon-google.svg";
 import {PasswordInput} from "antd-password-input-strength";
 import {RegisterEmail} from "./register-email";
 import {isFullNameValid, isMailValid, isPasswordValid} from "../../../../../common/validators/account-validator";
+import ReCAPTCHA from "react-google-recaptcha";
 
 interface RegisterInfoProps {
     mail: string,
@@ -15,14 +16,13 @@ interface RegisterInfoProps {
 
 const RegisterInfo: React.FC<RegisterInfoProps> = ({mail, initView, form}: RegisterInfoProps) => {
 
-    const [fullName, setFullName] = useState('')
-    const [email, setEmail] = useState('');
     const [formSubmitted, setFormSubmitted] = useState(false)
     const fullNameRef = useRef<any>(null)
     const {getFieldDecorator, setFieldsValue, isFieldTouched, getFieldsValue} = form;
 
     const mailValidation = isMailValid(getFieldsValue().mail)
     const fullNameValidation = isFullNameValid(getFieldsValue().fullName)
+    const recaptchaRef:any = React.createRef<ReCAPTCHA>();
 
     useEffect(()=>{
         if(!initView){
@@ -39,14 +39,15 @@ const RegisterInfo: React.FC<RegisterInfoProps> = ({mail, initView, form}: Regis
     }
 
     const handleSubmit = () =>{
-        setFormSubmitted(true)
-        form.validateFields((err:any, values:any) => {
-            if (!err) {
-                console.log('Received values of form: ', values);
-            }
-        });
+        recaptchaRef.current.execute();
     }
 
+    const isFormValid = ():boolean =>{
+        if(isMailValid(getFieldsValue().mail).isValid && isPasswordValid(getFieldsValue().password).isValid && isFullNameValid(getFieldsValue().fullName).isValid){
+            return true
+        }
+        return false
+    }
 
 
     return (
@@ -69,12 +70,11 @@ const RegisterInfo: React.FC<RegisterInfoProps> = ({mail, initView, form}: Regis
 
                 </Row>
 
-
                 <div className="text-left mt-2">
                     <Form.Item required colon={false} label="Κώδικος" hasFeedback validateStatus={isFieldTouched('password') ? isPasswordValid(getFieldsValue().password).formValidationStatus : ''} help={isFieldTouched('password') ? isPasswordValid(getFieldsValue().password).errorMessage : ''}>
                         {getFieldDecorator('password',)(
                             <PasswordInput settings={{height: 4, alwaysVisible: true, colorScheme: {
-                                    levels: ["#ff4033", "#fe7439", "#ffd908", "#78e135", "#6ecc3a"],
+                                    levels: ["#ff4033", "#fe7439", "#59eb29", "#5df32b", "#67ff2f"],
                                     noLevel: "lightgrey"
                                 }}}
                             />
@@ -83,7 +83,7 @@ const RegisterInfo: React.FC<RegisterInfoProps> = ({mail, initView, form}: Regis
                 </div>
 
                 <Row className="mt-5">
-                    <Button type={'primary'} htmlType={'submit'} block className={style.inputButton} >Εγγράφη</Button>
+                    <Button type={'primary'} htmlType={'submit'} block className={`${style.inputButton} auth-disabled`} disabled={!isFormValid()} >Εγγράφη</Button>
                 </Row>
 
                 <Row className={'text-center'}>
@@ -99,6 +99,13 @@ const RegisterInfo: React.FC<RegisterInfoProps> = ({mail, initView, form}: Regis
                     <hr/>
                     Έχετε ηδη λογαριασμό; <span className={'light-sky-blue'}>Σύνδεθειτέ</span>
                 </Row>
+
+
+                <ReCAPTCHA
+                    ref={recaptchaRef}
+                    size="invisible"
+                    sitekey="6LfulNMUAAAAAEBEZb336ALlHtTRRO5a85Trf9n_"
+                />
             </Form>
 
         </Col>
