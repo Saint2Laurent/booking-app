@@ -24,3 +24,17 @@ export const isMailValid = (mail: string): ValidationResponse => {
     }
 
 }
+
+export const isFullNameValid = (name: string):ValidationResponse => {
+    return {
+        isValid: true,
+        formValidationStatus: 'success'
+    }
+}
+
+export const isPasswordValid = (password: string):ValidationResponse => {
+    return {
+        isValid: true,
+        formValidationStatus: 'success'
+    }
+}

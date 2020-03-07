@@ -1,12 +1,14 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useState} from 'react';
 import '../../../styles/global.scss'
 import style from '../auth.module.scss'
-import {Button, Col, Input, Row, Form, Icon} from "antd";
+import '@ant-design/compatible/assets/index.css';
 import googleIcon from "../../../assets/images/icon-google.svg";
-import FormItem from "antd/es/form/FormItem";
 import {isMailValid} from "../../../../../common/validators/account-validator";
-import { FormComponentProps } from "antd/lib/form";
+import { Form, Input, Button, Row, Col } from 'antd';
 
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import { gql } from 'apollo-boost'
+import { useMailValidator } from '../use-mail-validators';
 
 declare const ValidateStatuses: ["success", "warning", "error", "validating", ""];
 
@@ -14,54 +16,39 @@ declare const ValidateStatuses: ["success", "warning", "error", "validating", ""
 interface RegisterEmailProps {
     swapView(): any,
     setMail(email: string): any,
-    form: any
 }
 
-export const RegisterEmail: React.FC<RegisterEmailProps> = ({swapView, setMail, form}: RegisterEmailProps) => {
-    const [email, setEmail] = useState('');
-    const [mailValidState, setMailValidState] = useState<typeof ValidateStatuses[number]>("");
-    const [validationTimeout, setValidationTimeout] = useState()
 
-    const {getFieldDecorator, setFieldsValue, isFieldTouched, getFieldsValue} = form;
-    const mailValidation = isMailValid(getFieldsValue().mail)
 
-    const nextStep = () => {
-        setMail(getFieldsValue().mail)
-        swapView()
+export const RegisterEmail: React.FC<RegisterEmailProps> = ({swapView, setMail}: RegisterEmailProps) => {
+
+
+    const [form] = Form.useForm();
+    const [validationResponse, setEmail] = useMailValidator()
+
+
+
+    const finished = () =>{
+        console.log(form.getFieldValue('note'))
+    }
+
+    const onMailChange = () =>{
+        // console.log(form.getFieldValue('mail'))
+        // setMail(form.getFieldValue('mail'))
+        setEmail(form.getFieldValue('mail'))
     }
 
 
-
-    console.log(mailValidation)
-
-
-    const handleMailChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        // setEmail(e.target.value);
-        setFieldsValue({mail: e.target.value})
-        setMailValidState('validating')
-        setValidationTimeout(clearInterval(validationTimeout))
-
-        setValidationTimeout(setTimeout((e:React.ChangeEvent<HTMLInputElement>)=>{
-            if(isMailValid(getFieldsValue().mail).isValid){
-
-                setMailValidState('success')
-            }else{
-                setMailValidState('error')
-            }
-        }, 400))
-    };
-
-
-
     return (
+
         <Col span={24} className={'mr-1 mt-4'}>
-            <Form>
+            <Form form={form} onFinish={finished}>
                 <Row className={`m-0`}>
-                    <Form.Item hasFeedback validateStatus={mailValidState} help={isFieldTouched('mail') ? mailValidation.errorMessage : ''} className={'mb-2'}>
-                        {getFieldDecorator('mail')(
-                            <Input onChange={handleMailChange} className={style.authInput} placeholder="Το email σας" />
-                        )}
-                    </Form.Item>
+                    <Col span={24}>
+                        <Form.Item name="mail" hasFeedback validateStatus={validationResponse.formValidationStatus} help={validationResponse.errorMessage}>
+                            <Input onChange={onMailChange} placeholder='Λογαριασμός email' />
+                        </Form.Item>
+                    </Col>
                 </Row>
                 <Row className={'pb-5 text-left'}>
                     <p className="small-text">
@@ -69,7 +56,7 @@ export const RegisterEmail: React.FC<RegisterEmailProps> = ({swapView, setMail, 
                     </p>
                 </Row>
                 <Row className="mt-5">
-                    <Button htmlType={'submit'} block className={`${style.inputButton} auth-disabled`} type={'primary'} onClick={nextStep} disabled={!mailValidation.isValid}>Σύνεχεια</Button>
+                    {/*<Button htmlType={'submit'} block className={`${style.inputButton} auth-disabled`} type={'primary'} onClick={nextStep} disabled={!mailValidation.isValid}>Σύνεχεια</Button>*/}
                 </Row>
                 <Row className={'text-center'}>
                     Ή
@@ -91,4 +78,4 @@ export const RegisterEmail: React.FC<RegisterEmailProps> = ({swapView, setMail, 
     );
 }
 
-export default Form.create<RegisterEmailProps>()(RegisterEmail);
+export default RegisterEmail;

@@ -1,10 +1,10 @@
 import React, {RefObject, useEffect, useRef, useState} from 'react';
 import style from "../auth.module.scss";
-import {Button, Input, Row, Col, Form} from "antd";
-import FormItem from "antd/es/form/FormItem";
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Button, Input, Row, Col } from "antd";
 import googleIcon from "../../../assets/images/icon-google.svg";
 import {PasswordInput} from "antd-password-input-strength";
-import {RegisterEmail} from "./register-email";
 import {isFullNameValid, isMailValid, isPasswordValid} from "../../../../../common/validators/account-validator";
 import ReCAPTCHA from "react-google-recaptcha";
 

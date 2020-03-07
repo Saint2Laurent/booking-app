@@ -1,6 +1,8 @@
 import React from 'react';
 import style from '../auth.module.scss'
-import {Row, Col, Form, Input} from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Row, Col, Input } from 'antd';
 import logo from "../../../assets/images/logo2.svg";
 import tag from "../../../assets/images/tag.svg";
 import FormItem from "antd/es/form/FormItem";
@@ -12,7 +14,7 @@ const Login = () => {
     return (
         <Row className={style.container}>
             <Col span={24} className={'text-center'}>
-                <Row type={'flex'} justify={"center"}>
+                <Row>
                     <Col span={24} className={'mt-4'}>
                         <img src={logo} style={{width: '3rem'}} alt=""/>
                     </Col>

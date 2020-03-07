@@ -1,11 +1,13 @@
 import React, {useState, useRef} from 'react';
-import {Col, Form, Row} from "antd";
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Col, Row } from "antd";
 import RegisterEmail from "./register-email";
 import '../../../styles/global.scss'
 import {CSSTransition} from 'react-transition-group';
 import RegisterInfo from "./register-info";
 import './register-transitions.scss'
-import logo from '../../../assets/images/logo3.svg'
+import logo from '../../../assets/images/logo.svg'
 import style from '../auth.module.scss'
 import tag from '../../../assets/images/tag.svg'
 import '../auth.scss'
@@ -26,17 +28,15 @@ const Register = () => {
     return (
         <Row className={style.container}>
             <Col span={24} className={'text-center'}>
-                <Row type={'flex'} justify={"center"}>
+                <Row>
                     <Col span={24} className={'mt-4'}>
-                        <img src={logo} style={{width: '3rem'}} alt=""/>
+                        <img src={logo} style={{width: '12rem'}} alt=""/>
                     </Col>
-                    <Col span={24}>
-                        <img src={tag} style={{width: '6.5rem'}} alt=""/>
-                    </Col>
+
                 </Row>
                 <Row>
-                    <Form>
-                        <Col className={style.authForm} offset={9} span={6} >
+                    <Col className={style.authForm} span={6} offset={9}>
+                        <Form>
                             <Row className='text-center'>
                                 <h1 className={style.headingTitle}>Δημιουρήστε έναν λογαριασμό</h1>
                             </Row>
@@ -50,8 +50,8 @@ const Register = () => {
 
                                 </CSSTransition>
                             </div>
-                        </Col>
-                    </Form>
+                        </Form>
+                    </Col>
                 </Row>
             </Col>
         </Row>
