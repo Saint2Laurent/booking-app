@@ -6,9 +6,8 @@ import googleIcon from "../../../assets/images/icon-google.svg";
 import {isMailValid} from "../../../../../common/validators/account-validator";
 import { Form, Input, Button, Row, Col } from 'antd';
 
-import { useQuery, useMutation } from "@apollo/react-hooks";
-import { gql } from 'apollo-boost'
 import { useMailValidator } from '../use-mail-validators';
+import {useThrottle} from "@umijs/hooks";
 
 declare const ValidateStatuses: ["success", "warning", "error", "validating", ""];
 
@@ -36,7 +35,12 @@ export const RegisterEmail: React.FC<RegisterEmailProps> = ({swapView, setMail}:
         // console.log(form.getFieldValue('mail'))
         // setMail(form.getFieldValue('mail'))
         setEmail(form.getFieldValue('mail'))
+
     }
+
+
+
+
 
 
     return (
