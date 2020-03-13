@@ -1,5 +1,4 @@
 import React, {useState, useRef} from 'react';
-import { Form } from '@ant-design/compatible';
 import '@ant-design/compatible/assets/index.css';
 import { Col, Row } from "antd";
 import RegisterEmail from "./register-email";
@@ -9,7 +8,6 @@ import RegisterInfo from "./register-info";
 import './register-transitions.scss'
 import logo from '../../../assets/images/logo.svg'
 import style from '../auth.module.scss'
-import tag from '../../../assets/images/tag.svg'
 import '../auth.scss'
 
 const Register = () => {
@@ -36,21 +34,19 @@ const Register = () => {
                 </Row>
                 <Row>
                     <Col className={style.authForm} span={6} offset={9}>
-                        <Form>
-                            <Row className='text-center'>
-                                <h1 className={style.headingTitle}>Δημιουρήστε έναν λογαριασμό</h1>
-                            </Row>
-                            <div className={style.slideContainer} ref={sliderRef}>
-                                <CSSTransition appear timeout={600} in={initView} classNames='swapViews'>
-                                    <RegisterEmail swapView={swapView} setMail={setMail} />
+                        <Row className='text-center'>
+                            <h1 className={style.headingTitle}>Δημιουρήστε έναν λογαριασμό</h1>
+                        </Row>
+                        <div className={style.slideContainer} ref={sliderRef}>
+                            <CSSTransition appear timeout={600} in={initView} classNames='swapViews'>
+                                <RegisterInfo initView={initView} mail={mail} />
 
-                                </CSSTransition>
-                                <CSSTransition timeout={900} in={!initView} classNames={'swapViews'}>
-                                    <RegisterInfo initView={initView} mail={mail} />
+                            </CSSTransition>
+                            <CSSTransition timeout={900} in={!initView} classNames={'swapViews'}>
+                                <RegisterEmail swapView={swapView} setMail={setMail} />
 
-                                </CSSTransition>
-                            </div>
-                        </Form>
+                            </CSSTransition>
+                        </div>
                     </Col>
                 </Row>
             </Col>

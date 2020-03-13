@@ -2,7 +2,13 @@
   line-height: 1rem ;
 }
 
-.ant-form-explain{
+.ant-input::placeholder{
+  font-size: .78rem;
+  color: #707070;
+
+}
+
+.ant-form-explain, .ant-form-item-extra{
   font-size: .8rem !important;
   text-align: left;
 }
@@ -19,3 +25,8 @@
 .ant-form-item-required::before{
   display: none !important;
 }
+
+.auth-password-input .ant-form-item-children-icon {
+  transform: translateY(-.24rem)
+}
+

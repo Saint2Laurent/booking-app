@@ -46,7 +46,6 @@ export const useMailValidator = () => {
         console.log('validate');
         const validationResponse = isMailValid(mail)
         setMailValidation(validationResponse)
-
     }
 
     return [mailValidation, setEmail] as const
