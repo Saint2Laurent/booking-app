@@ -10,7 +10,7 @@ const server = new GraphQLServer({
 })
 
 const options = {
-  port: 4001,
+  port: 4002,
 }
 
 server.start(options, ({ port }) =>
