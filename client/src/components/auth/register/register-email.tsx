@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../../../styles/global.scss";
 import style from "../auth.module.scss";
 import "@ant-design/compatible/assets/index.css";
@@ -6,6 +6,7 @@ import googleIcon from "../../../assets/images/icon-google.svg";
 import { Form, Input, Button, Row, Col } from "antd";
 import { useMailValidator } from "../use-mail-validators";
 import { isMailValid } from "../../../../../common/validators/account-validator";
+import GoogleLogin from "react-google-login";
 
 interface RegisterEmailProps {
   swapView(): any;
@@ -18,6 +19,19 @@ export const RegisterEmail: React.FC<RegisterEmailProps> = ({
 }: RegisterEmailProps) => {
   const [form] = Form.useForm();
   const [validationResponse, setEmail] = useMailValidator();
+  const googleButtonRef: any = useRef();
+
+  const blockTabOnGoogleButton = (e: any) => {
+    if (e.key === "Tab") {
+      if ((document.activeElement as any).id === "registerEmailGButton") {
+        e.preventDefault();
+      }
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", blockTabOnGoogleButton);
+  }, []);
 
   const finished = () => {
     setMail(form.getFieldValue("mail"));
@@ -27,6 +41,8 @@ export const RegisterEmail: React.FC<RegisterEmailProps> = ({
   const onMailChange = () => {
     setEmail(form.getFieldValue("mail"));
   };
+
+  const responseGoogle = (r: any) => {};
 
   return (
     <Col span={24} className={"mr-1 mt-4 text-left"}>
@@ -55,7 +71,7 @@ export const RegisterEmail: React.FC<RegisterEmailProps> = ({
             htmlType={"submit"}
             block
             className={`${style.inputButton} auth-disabled`}
-            disabled={isMailValid(form.getFieldValue("mail")).isValid}
+            disabled={!validationResponse.isValid}
             type={"primary"}
           >
             Σύνεχεια
@@ -63,20 +79,35 @@ export const RegisterEmail: React.FC<RegisterEmailProps> = ({
         </Row>
         <Row>
           <Col span={24} className={"text-center"}>
-            Ήf
+            Ή
           </Col>
         </Row>
         <Row>
-          <Button block className={style.inputButton}>
-            <img className={style.buttonIcon} src={googleIcon} alt="" />
-            <span className="ml-1">Σύνεχεια με Google</span>
-          </Button>
+          <GoogleLogin
+            clientId="315458143733-80m56pstigk1t5q22i3fdrpa0jbvd570.apps.googleusercontent.com"
+            render={renderProps => (
+              <Button
+                id={"registerEmailGButton"}
+                ref={googleButtonRef}
+                block
+                className={style.inputButton}
+                onClick={renderProps.onClick}
+              >
+                <img className={style.buttonIcon} src={googleIcon} alt="" />
+                <span className="ml-1">Σύνεχεια με Google</span>
+              </Button>
+            )}
+            buttonText="Login"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={"single_host_origin"}
+          />
         </Row>
         <Row className={"mt-5 text-smaller text-center"}>
           <Col span={24}>
             <hr />
             <div className="mt-2">
-              Έχετε ηδη λογαριασμό;{" "}
+              Έχετε ηδη λογαριασμό;
               <span className={"light-sky-blue"}>Σύνδεθειτέ</span>
             </div>
           </Col>

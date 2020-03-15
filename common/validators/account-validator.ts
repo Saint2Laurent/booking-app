@@ -79,7 +79,6 @@ export const isPasswordValid = (password: string):ValidationResponse => {
 
 export const isAccountValid = (account: Account):boolean => {
     const {mail, password, fullName} = account;
-    console.log(account)
 
     if(isMailValid(mail).isValid && isPasswordValid(password).isValid && isFullNameValid(fullName).isValid){
         return true

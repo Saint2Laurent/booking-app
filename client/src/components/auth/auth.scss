@@ -19,6 +19,10 @@
 }
 
 .ant-btn-primary[disabled].auth-disabled:hover{
+  cursor: pointer;
+}
+
+.ant-btn-primary[disabled].auth-disabled:hover{
   color: #cbcbcb;
 }
 

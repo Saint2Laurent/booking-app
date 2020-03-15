@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import style from "../auth.module.scss";
 import { Form, Input, Button, Row, Col } from "antd";
 import "@ant-design/compatible/assets/index.css";
@@ -6,13 +6,13 @@ import googleIcon from "../../../assets/images/icon-google.svg";
 import { PasswordInput } from "antd-password-input-strength";
 import {
   isFullNameValid,
-  isMailValid,
   isPasswordValid,
-  isAccountValid
+  isAccountValid,
+  isMailValid
 } from "../../../../../common/validators/account-validator";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useMailValidator } from "../use-mail-validators";
-import { Account } from "../../../../../common/types/account";
+import { isEmpty } from "../../../../../common/utils/isEmpty";
 
 interface RegisterInfoProps {
   mail: string;
@@ -25,6 +25,7 @@ const RegisterInfo: React.FC<RegisterInfoProps> = ({
 }: RegisterInfoProps) => {
   const recaptchaRef: any = React.createRef<ReCAPTCHA>();
   const [form] = Form.useForm();
+  const fullNameRef: any = useRef();
 
   const finished = () => {};
 
@@ -32,11 +33,17 @@ const RegisterInfo: React.FC<RegisterInfoProps> = ({
   const [fullName, setFullName] = useState("");
   const [password, setPassword] = useState("");
 
-  const isAccValid: boolean = isAccountValid({
-    mail: form.getFieldValue("mail"),
-    password: form.getFieldValue("password"),
-    fullName: form.getFieldValue("fullName")
-  });
+  useEffect(() => {
+    console.log("---");
+    if (initView) {
+      setTimeout(() => {
+        if (!isEmpty(mail)) {
+          fullNameRef.current.focus();
+        }
+      }, 150);
+      form.setFieldsValue({ mail });
+    }
+  }, [mail]);
 
   const onMailChange = () => {
     setEmail(form.getFieldValue("mail"));
@@ -91,7 +98,11 @@ const RegisterInfo: React.FC<RegisterInfoProps> = ({
                   : ""
               }
             >
-              <Input onChange={onFullNameChange} placeholder="Πλήρες όνομα" />
+              <Input
+                ref={fullNameRef}
+                onChange={onFullNameChange}
+                placeholder="Πλήρες όνομα"
+              />
             </Form.Item>
           </Col>
         </Row>
