@@ -1,115 +1,199 @@
-import React, {RefObject, useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from "react";
 import style from "../auth.module.scss";
-import { Form } from '@ant-design/compatible';
-import '@ant-design/compatible/assets/index.css';
-import { Button, Input, Row, Col } from "antd";
+import { Form, Input, Button, Row, Col } from "antd";
+import "@ant-design/compatible/assets/index.css";
 import googleIcon from "../../../assets/images/icon-google.svg";
-import {PasswordInput} from "antd-password-input-strength";
-import {isFullNameValid, isMailValid, isPasswordValid} from "../../../../../common/validators/account-validator";
+import { PasswordInput } from "antd-password-input-strength";
+import {
+  isFullNameValid,
+  isPasswordValid,
+  isAccountValid,
+  isMailValid
+} from "../../../../../common/validators/account-validator";
 import ReCAPTCHA from "react-google-recaptcha";
+import { useMailValidator } from "../use-mail-validators";
+import { isEmpty } from "../../../../../common/utils/isEmpty";
 
 interface RegisterInfoProps {
-    mail: string,
-    initView: boolean,
-    form: any
+  mail: string;
+  initView: boolean;
 }
 
-const RegisterInfo: React.FC<RegisterInfoProps> = ({mail, initView, form}: RegisterInfoProps) => {
+const RegisterInfo: React.FC<RegisterInfoProps> = ({
+  mail,
+  initView
+}: RegisterInfoProps) => {
+  const recaptchaRef: any = React.createRef<ReCAPTCHA>();
+  const [form] = Form.useForm();
+  const fullNameRef: any = useRef();
 
-    const [formSubmitted, setFormSubmitted] = useState(false)
-    const fullNameRef = useRef<any>(null)
-    const {getFieldDecorator, setFieldsValue, isFieldTouched, getFieldsValue} = form;
+  const finished = () => {};
 
-    const mailValidation = isMailValid(getFieldsValue().mail)
-    const fullNameValidation = isFullNameValid(getFieldsValue().fullName)
-    const recaptchaRef:any = React.createRef<ReCAPTCHA>();
+  const [validationResponse, setEmail] = useMailValidator();
+  const [fullName, setFullName] = useState("");
+  const [password, setPassword] = useState("");
 
-    useEffect(()=>{
-        if(!initView){
-            fullNameRef.current.focus()
-            setFieldsValue({mail: mail})
+  useEffect(() => {
+    console.log("---");
+    if (initView) {
+      setTimeout(() => {
+        if (!isEmpty(mail)) {
+          fullNameRef.current.focus();
         }
-    }, [initView])
-
-
-
-
-    const handleFieldChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
-        setFieldsValue({[e.target.name]: getFieldsValue()[e.target.value]})
+      }, 150);
+      form.setFieldsValue({ mail });
     }
+  }, [mail]);
 
-    const handleSubmit = () =>{
-        recaptchaRef.current.execute();
-    }
+  const onMailChange = () => {
+    setEmail(form.getFieldValue("mail"));
+  };
 
-    const isFormValid = ():boolean =>{
-        if(isMailValid(getFieldsValue().mail).isValid && isPasswordValid(getFieldsValue().password).isValid && isFullNameValid(getFieldsValue().fullName).isValid){
-            return true
-        }
-        return false
-    }
+  const onPasswordChange = () => {
+    setPassword(form.getFieldValue("password"));
+  };
 
+  const onFullNameChange = () => {
+    setFullName(form.getFieldValue("fullName"));
+  };
 
-    return (
-        <Col span={24} className={'text-left'}>
-            <Form onSubmit={handleSubmit}>
-                <Row className={`m-0 mt-3`}>
-                    <Form.Item hasFeedback validateStatus={isMailValid(getFieldsValue().mail).formValidationStatus} help={isFieldTouched('mail') ? mailValidation.errorMessage : ''} className={'mb-2'}>
-                        {getFieldDecorator('mail')(
-                            <Input onChange={handleFieldChange} className={style.authInput} placeholder="Το email σας" />
-                        )}
-                    </Form.Item>
-                </Row>
+  return (
+    <Col span={24} className={"text-left p-1 mt-4"}>
+      <Form form={form} onFinish={finished}>
+        <Row>
+          <Col span={24}>
+            <Form.Item
+              name="mail"
+              hasFeedback
+              validateStatus={
+                form.isFieldTouched("mail")
+                  ? validationResponse.formValidationStatus
+                  : ""
+              }
+              extra={
+                form.isFieldTouched("mail")
+                  ? validationResponse.errorMessage
+                  : ""
+              }
+            >
+              <Input onChange={onMailChange} placeholder="Λογαριασμός email" />
+            </Form.Item>
+          </Col>
+        </Row>
 
-                <Row className={`m-0 mt-1`}>
-                    <Form.Item required hasFeedback validateStatus={isFieldTouched('fullName') || formSubmitted ? isFullNameValid(getFieldsValue().fullName).formValidationStatus : ''} help={isFieldTouched('fullName') ? fullNameValidation.errorMessage : ''} className={'mb-2'}>
-                        {getFieldDecorator('fullName')(
-                            <Input ref={fullNameRef} onChange={handleFieldChange} className={style.authInput} placeholder="Πλήρες όνομα" />
-                        )}
-                    </Form.Item>
+        <Row>
+          <Col span={24}>
+            <Form.Item
+              name="fullName"
+              hasFeedback
+              validateStatus={
+                form.isFieldTouched("fullName")
+                  ? isFullNameValid(form.getFieldValue("fullName"))
+                      .formValidationStatus
+                  : ""
+              }
+              extra={
+                form.isFieldTouched("fullName")
+                  ? isFullNameValid(form.getFieldValue("fullName")).errorMessage
+                  : ""
+              }
+            >
+              <Input
+                ref={fullNameRef}
+                onChange={onFullNameChange}
+                placeholder="Πλήρες όνομα"
+              />
+            </Form.Item>
+          </Col>
+        </Row>
 
-                </Row>
+        <Row>
+          <Col span={24}>
+            <span>Κωδικος:</span>
+            <Form.Item
+              className={"auth-password-input"}
+              name={"password"}
+              hasFeedback
+              validateStatus={
+                form.isFieldTouched("password")
+                  ? isPasswordValid(form.getFieldValue("password"))
+                      .formValidationStatus
+                  : ""
+              }
+              extra={
+                form.isFieldTouched("password")
+                  ? isPasswordValid(form.getFieldValue("password")).errorMessage
+                  : ""
+              }
+            >
+              <PasswordInput
+                onChange={onPasswordChange}
+                settings={{
+                  height: 4,
+                  alwaysVisible: true,
+                  colorScheme: {
+                    levels: [
+                      "#ff4033",
+                      "#fe7439",
+                      "#59eb29",
+                      "#5df32b",
+                      "#67ff2f"
+                    ],
+                    noLevel: "lightgrey"
+                  }
+                }}
+              />
+            </Form.Item>
+          </Col>
+        </Row>
 
-                <div className="text-left mt-2">
-                    <Form.Item required colon={false} label="Κώδικος" hasFeedback validateStatus={isFieldTouched('password') ? isPasswordValid(getFieldsValue().password).formValidationStatus : ''} help={isFieldTouched('password') ? isPasswordValid(getFieldsValue().password).errorMessage : ''}>
-                        {getFieldDecorator('password',)(
-                            <PasswordInput settings={{height: 4, alwaysVisible: true, colorScheme: {
-                                    levels: ["#ff4033", "#fe7439", "#59eb29", "#5df32b", "#67ff2f"],
-                                    noLevel: "lightgrey"
-                                }}}
-                            />
-                        )}
-                    </Form.Item>
-                </div>
+        <Row className="mt-5">
+          <Button
+            htmlType={"submit"}
+            block
+            className={`${style.inputButton} auth-disabled`}
+            disabled={
+              !isAccountValid({
+                mail: form.getFieldValue("mail"),
+                password: form.getFieldValue("password"),
+                fullName: form.getFieldValue("fullName")
+              })
+            }
+            type={"primary"}
+          >
+            Σύνεχεια
+          </Button>
+        </Row>
 
-                <Row className="mt-5">
-                    <Button type={'primary'} htmlType={'submit'} block className={`${style.inputButton} auth-disabled`} disabled={!isFormValid()} >Εγγράφη</Button>
-                </Row>
+        <Row className={"text-center"}>
+          <Col span={24}>Ή</Col>
+        </Row>
 
-                <Row className={'text-center'}>
-                    Ή
-                </Row>
-                <Row>
-                    <Button block className={style.inputButton}>
-                        <img className={style.buttonIcon} src={googleIcon} alt=""/>
-                        <span className="ml-1">Σύνεχεια με Google</span>
-                    </Button>
-                </Row>
-                <Row className={'mt-4 text-center text-smaller'}>
-                    <hr/>
-                    Έχετε ηδη λογαριασμό; <span className={'light-sky-blue'}>Σύνδεθειτέ</span>
-                </Row>
+        <Row>
+          <Button block className={style.inputButton}>
+            <img className={style.buttonIcon} src={googleIcon} alt="" />
+            <span className="ml-1">Σύνεχεια με Google</span>
+          </Button>
+        </Row>
 
+        <Row className={"mt-4 text-smaller text-center"}>
+          <Col span={24}>
+            <hr />
+            <div className="mt-2">
+              Έχετε ηδη λογαριασμό;{" "}
+              <span className={"light-sky-blue"}>Σύνδεθειτέ</span>
+            </div>
+          </Col>
+        </Row>
 
-                <ReCAPTCHA
-                    ref={recaptchaRef}
-                    size="invisible"
-                    sitekey="6LfulNMUAAAAAEBEZb336ALlHtTRRO5a85Trf9n_"
-                />
-            </Form>
-
-        </Col>
-    );
+        <ReCAPTCHA
+          ref={recaptchaRef}
+          size="invisible"
+          sitekey="6LfulNMUAAAAAEBEZb336ALlHtTRRO5a85Trf9n_"
+        />
+      </Form>
+    </Col>
+  );
 };
 
-export default Form.create<RegisterInfoProps>()(RegisterInfo);
+export default RegisterInfo;
