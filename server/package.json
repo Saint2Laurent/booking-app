@@ -9,7 +9,8 @@
     "generate:prisma": "prisma2 generate",
     "generate:nexus": "ts-node --transpile-only src/schema",
     "postinstall": "npm -s run generate",
-    "dev": "ts-node-dev --no-notify --respawn --transpileOnly src/server"
+    "dev": "ts-node-dev --no-notify --respawn --transpileOnly src/server",
+    "serve": "pm2 start npm  -- ts-node src/server.ts"
   },
   "dependencies": {
     "@prisma/client": "2.0.0-preview024",
