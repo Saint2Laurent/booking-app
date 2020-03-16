@@ -107,7 +107,7 @@ export const RegisterEmail: React.FC<RegisterEmailProps> = ({
           <Col span={24}>
             <hr />
             <div className="mt-2">
-              Έχετε ηδη λογαριασμό;
+              Έχετε ηδη λογαριασμό;{" "}
               <span className={"light-sky-blue"}>Σύνδεθειτέ</span>
             </div>
           </Col>

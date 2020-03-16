@@ -6,7 +6,7 @@ import "../../../styles/global.scss";
 import { CSSTransition } from "react-transition-group";
 import RegisterInfo from "./register-info";
 import "./register-transitions.scss";
-import logo from "../../../assets/images/logo.svg";
+import logo from "../../../assets/images/logo4.svg";
 import style from "../auth.module.scss";
 import "../auth.scss";
 
@@ -41,9 +41,11 @@ const Register = () => {
             xl={{ span: 6, offset: 9 }}
           >
             <Row className="text-center">
-              <h1 className={style.headingTitle}>
-                Δημιουρήστε έναν λογαριασμό
-              </h1>
+              <Col span={24}>
+                <h1 className={style.headingTitle}>
+                  Δημιουρήστε έναν λογαριασμό{" "}
+                </h1>
+              </Col>
             </Row>
             <div className={style.slideContainer} ref={sliderRef}>
               <CSSTransition
