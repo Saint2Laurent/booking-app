@@ -1,15 +1,10 @@
-import { ApolloServer, gql } from "apollo-server";
-import * as mongoose from "mongoose";
+import { ApolloServer } from "apollo-server";
+import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 // import { query } from "./types";
 import { schema } from "./schema/schema";
-const db = dotenv.config().parsed.DB_STRING;
 
-const resolvers = {
-  Query: {
-    hello: () => "world"
-  }
-};
+const db = dotenv.config().parsed.DB_STRING;
 
 (async () => {
   await mongoose
@@ -22,8 +17,7 @@ const resolvers = {
     .catch(e => console.log(e));
 
   await new ApolloServer({
-    schema,
-    resolvers
+    schema
   })
     .listen()
     .then(({ url }) => {

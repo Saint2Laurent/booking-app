@@ -1,23 +1,32 @@
-import { ApolloServer, gql } from "apollo-server";
-import * as mongoose from "mongoose";
 import * as graphql from "graphql";
-import { User } from "./models/User";
+import { makeExecutableSchema, mergeSchemas } from "graphql-tools";
+
 const {
   GraphQLObjectType,
   GraphQLSchema,
+  GraphQLBoolean,
   GraphQLID,
   GraphQLList,
   GraphQLString,
   GraphQLInputObjectType
 } = graphql;
 
-const hello = new GraphQLObjectType({
-  name: "Hello",
+export const UserType = new GraphQLObjectType({
+  name: "User",
   fields: () => ({
-    hello: { type: GraphQLString }
+    id: { type: GraphQLString },
+    fullname: { type: GraphQLString },
+    email: { type: GraphQLString },
+    avatar: { type: GraphQLString },
+    isGoogle: { type: GraphQLBoolean },
+    googleID: { type: GraphQLString }
   })
 });
 
-module.exports = new GraphQLSchema({
-  query: hello
+export const AuthType = new GraphQLObjectType({
+  name: "Auth",
+  fields: () => ({
+    user: { type: UserType },
+    error: { type: GraphQLString }
+  })
 });

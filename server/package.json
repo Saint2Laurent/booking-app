@@ -10,14 +10,17 @@
   "author": "th",
   "license": "ISC",
   "dependencies": {
+    "@typegoose/typegoose": "^6.4.0",
     "@types/bcryptjs": "^2.4.2",
+    "@types/gravatar": "^1.8.1",
     "@types/passport": "^1.0.3",
     "apollo-server": "^2.11.0",
     "apollo-server-types": "^0.3.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "graphql": "^14.6.0",
-    "mongoose": "^5.9.5",
+    "graphql-tools": "^4.0.7",
+    "gravatar": "^1.8.0",
     "nodemon": "^2.0.2",
     "reflect-metadata": "^0.1.13",
     "typegoose": "^5.9.1",
@@ -26,6 +29,7 @@
   },
   "devDependencies": {
     "@types/mongoose": "^5.7.6",
+    "mongoose": "^5.9.5",
     "ts-node": "^8.6.2"
   }
 }
