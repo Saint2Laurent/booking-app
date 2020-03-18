@@ -40,7 +40,7 @@ const Login = () => {
             <Row className="text-center">
               <Col span={24}>
                 <h1 className={` ${style.headingTitle}`}>
-                  Είσοδος λογαριασμού
+                  Είσοδος λογαριασμού{" "}
                 </h1>
               </Col>
             </Row>
