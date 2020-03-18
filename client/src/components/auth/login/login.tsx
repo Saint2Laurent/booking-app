@@ -19,7 +19,14 @@ const Login = () => {
       <Col span={24} className={"text-center"}>
         <Row>
           <Col span={24} className={"mt-4"}>
-            <img src={logo} style={{ width: "12rem" }} alt="" />
+            <img src={logo} className={style.authLogo} alt="" />
+            <Col
+              xs={{ span: 0 }}
+              md={{ span: 24 }}
+              className={style.authRedirect}
+            >
+              <Button ghost>Εγγραφή</Button>
+            </Col>
           </Col>
         </Row>
         <Row>
@@ -28,6 +35,7 @@ const Login = () => {
             xs={{ span: 20, offset: 2 }}
             md={{ span: 8, offset: 8 }}
             xl={{ span: 6, offset: 9 }}
+            xxl={{ span: 4, offset: 10 }}
           >
             <Row className="text-center">
               <Col span={24}>

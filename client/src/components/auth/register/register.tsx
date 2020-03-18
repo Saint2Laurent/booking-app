@@ -6,7 +6,7 @@ import "../../../styles/global.scss";
 import { CSSTransition } from "react-transition-group";
 import RegisterInfo from "./register-info";
 import "./register-transitions.scss";
-import logo from "../../../assets/images/logo4.svg";
+import logo from "../../../assets/images/logo.svg";
 import style from "../auth.module.scss";
 import "../auth.scss";
 
@@ -39,6 +39,7 @@ const Register = () => {
             xs={{ span: 20, offset: 2 }}
             md={{ span: 8, offset: 8 }}
             xl={{ span: 6, offset: 9 }}
+            xxl={{ span: 4, offset: 10 }}
           >
             <Row className="text-center">
               <Col span={24}>
