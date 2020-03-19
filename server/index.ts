@@ -1,7 +1,7 @@
 import { ApolloServer } from "apollo-server";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
-// import { query } from "./types";
+
 import { schema } from "./schema/schema";
 
 const db = dotenv.config().parsed.DB_STRING;

@@ -21,11 +21,3 @@ export const UserType = new GraphQLObjectType({
     googleID: { type: GraphQLString }
   })
 });
-
-export const AuthType = new GraphQLObjectType({
-  name: "Auth",
-  fields: () => ({
-    user: { type: UserType },
-    error: { type: GraphQLString }
-  })
-});
