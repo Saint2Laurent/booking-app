@@ -11,8 +11,8 @@ import {
   isMailValid
 } from "../../../../../common/validators/account-validator";
 import ReCAPTCHA from "react-google-recaptcha";
-import { useMailValidator } from "../use-mail-validators";
 import { isEmpty } from "../../../../../common/utils/isEmpty";
+import { useMailValidator } from "../../../hooks/mail-validators";
 
 interface RegisterInfoProps {
   mail: string;

@@ -4,9 +4,9 @@ import style from "../auth.module.scss";
 import "@ant-design/compatible/assets/index.css";
 import googleIcon from "../../../assets/images/icon-google.svg";
 import { Form, Input, Button, Row, Col } from "antd";
-import { useMailValidator } from "../use-mail-validators";
 import { isMailValid } from "../../../../../common/validators/account-validator";
 import GoogleLogin from "react-google-login";
+import { useMailValidator } from "../../../hooks/mail-validators";
 
 interface RegisterEmailProps {
   swapView(): any;
