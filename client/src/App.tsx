@@ -1,8 +1,8 @@
-import React from "react";
-import "./styles/global.scss";
-import "./styles/bootstrap-utilities.css";
-import AppRouter from "./components/routing/app-router";
-import { BrowserRouter as Router } from "react-router-dom";
+import React from 'react';
+import './styles/global.scss';
+import './styles/bootstrap-utilities.css';
+import AppRouter from './components/routing/app-router';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 const App = () => (
   <React.Fragment>

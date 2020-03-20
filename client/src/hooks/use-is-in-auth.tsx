@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router";
-import { isEmpty } from "../../../common/utils/isEmpty";
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
+import { isEmpty } from '../../../common/utils/isEmpty';
 
 const useIsInAuth = () => {
   const [isInAuth, setIsInAuth] = useState(false);
@@ -8,10 +8,10 @@ const useIsInAuth = () => {
   let location = useLocation();
 
   useEffect(() => {
-    let urlPathSplit = location.pathname.split("/");
+    let urlPathSplit = location.pathname.split('/');
     setIsInAuth(false);
     if (!isEmpty(urlPathSplit[1])) {
-      if (urlPathSplit[1] === "auth") {
+      if (urlPathSplit[1] === 'auth') {
         console.log(urlPathSplit[1]);
         setIsInAuth(true);
       } else {

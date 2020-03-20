@@ -1,12 +1,8 @@
-import React from "react";
-import { Layout, Menu } from "antd";
-import SubMenu from "antd/es/menu/SubMenu";
-import useIsInAuth from "../../../hooks/use-is-in-auth";
-import {
-  UserOutlined,
-  LaptopOutlined,
-  NotificationOutlined
-} from "@ant-design/icons";
+import React from 'react';
+import { Layout, Menu } from 'antd';
+import SubMenu from 'antd/es/menu/SubMenu';
+import useIsInAuth from '../../../hooks/use-is-in-auth';
+import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 
 const NavSider = () => {
   const [isInAuth] = useIsInAuth();
@@ -14,16 +10,12 @@ const NavSider = () => {
   const { Sider } = Layout;
 
   return (
-    <Sider
-      width={200}
-      className="site-layout-background"
-      style={{ display: isInAuth ? "none" : "block" }}
-    >
+    <Sider width={200} className="site-layout-background" style={{ display: isInAuth ? 'none' : 'block' }}>
       <Menu
         mode="inline"
-        defaultSelectedKeys={["1"]}
-        defaultOpenKeys={["sub1"]}
-        style={{ height: "100%", borderRight: 0 }}
+        defaultSelectedKeys={['1']}
+        defaultOpenKeys={['sub1']}
+        style={{ height: '100%', borderRight: 0 }}
       >
         <SubMenu
           key="sub1"

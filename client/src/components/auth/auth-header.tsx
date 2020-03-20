@@ -25,7 +25,4 @@ const AuthHeader: React.FC<AuthHeaderProps> = props => {
   );
 };
 
-// Mutation: Check if user is registered
-// Extra stuff if needed
-
 export default AuthHeader;
