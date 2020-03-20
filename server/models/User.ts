@@ -18,8 +18,10 @@ export class User {
   @prop({ default: null })
   googleID: String;
 
-  @prop({ default: null })
-  avatar: String;
+  @prop()
+  avatar: {
+    url: String;
+  };
 
   @prop({ default: Date.now() })
   date: Date;

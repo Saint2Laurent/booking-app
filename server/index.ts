@@ -1,10 +1,15 @@
 import { ApolloServer } from "apollo-server";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
-
-import { schema } from "./schema/schema";
+import { makeExecutableSchema } from "graphql-tools";
+import { resolvers } from "./resolvers/index";
+import { typeDefs } from "./types/index";
 
 const db = dotenv.config().parsed.DB_STRING;
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers
+});
 
 (async () => {
   await mongoose
@@ -15,7 +20,6 @@ const db = dotenv.config().parsed.DB_STRING;
     })
     .then(() => console.log("Connected to DB"))
     .catch(e => console.log(e));
-
   await new ApolloServer({
     schema
   })
