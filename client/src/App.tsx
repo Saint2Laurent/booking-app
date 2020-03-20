@@ -1,15 +1,15 @@
 import React from "react";
 import "./styles/global.scss";
 import "./styles/bootstrap-utilities.css";
-import { BrowserRouter as Router } from "react-router-dom";
 import AppRouter from "./components/routing/app-router";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const App = () => (
-  <div className="App">
+  <React.Fragment>
     <Router>
       <AppRouter />
     </Router>
-  </div>
+  </React.Fragment>
 );
 
 export default App;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Layout, Menu } from "antd";
 import SubMenu from "antd/es/menu/SubMenu";
-import useIsInAuth from "../../../hooks/is-in-auth";
+import useIsInAuth from "../../../hooks/use-is-in-auth";
 import {
   UserOutlined,
   LaptopOutlined,

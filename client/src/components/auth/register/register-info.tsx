@@ -12,7 +12,7 @@ import {
 } from "../../../../../common/validators/account-validator";
 import ReCAPTCHA from "react-google-recaptcha";
 import { isEmpty } from "../../../../../common/utils/isEmpty";
-import { useMailValidator } from "../../../hooks/mail-validators";
+import { useMailValidator } from "../../../hooks/use-mail-validators";
 
 interface RegisterInfoProps {
   mail: string;

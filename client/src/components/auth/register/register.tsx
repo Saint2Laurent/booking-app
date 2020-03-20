@@ -1,24 +1,23 @@
-import React, { useState, useRef } from "react";
-import "@ant-design/compatible/assets/index.css";
-import { Col, Row } from "antd";
-import RegisterEmail from "./register-email";
-import "../../../styles/global.scss";
-import { CSSTransition } from "react-transition-group";
-import RegisterInfo from "./register-info";
-import "./register-transitions.scss";
-import logo from "../../../assets/images/logo.svg";
-import style from "../auth.module.scss";
-import "../auth.scss";
+import React, { useState, useRef } from 'react';
+import '@ant-design/compatible/assets/index.css';
+import { Col, Row } from 'antd';
+import RegisterEmail from './register-email';
+import '../../../styles/global.scss';
+import { CSSTransition } from 'react-transition-group';
+import RegisterInfo from './register-info';
+import './register-transitions.scss';
+import logo from '../../../assets/images/logo.svg';
+import style from '../auth.module.scss';
+import '../auth.scss';
+import AuthHeader from '../auth-header';
 
 const Register = () => {
   const [initView, setInitView] = useState(true);
   const sliderRef: any = useRef<HTMLDivElement | null>(null);
   const scroll = (view: boolean) =>
-    view
-      ? sliderRef.current.scrollTo(sliderRef.current.scrollWidth, 0)
-      : sliderRef.current.scrollTo(0, 0);
+    view ? sliderRef.current.scrollTo(sliderRef.current.scrollWidth, 0) : sliderRef.current.scrollTo(0, 0);
 
-  const [mail, setMail] = useState("");
+  const [mail, setMail] = useState('');
 
   const swapView = () => {
     setInitView(!initView);
@@ -27,12 +26,8 @@ const Register = () => {
 
   return (
     <Row className={style.container}>
-      <Col span={24} className={"text-center"}>
-        <Row>
-          <Col span={24} className={"mt-4"}>
-            <img src={logo} style={{ width: "12rem" }} alt="" />
-          </Col>
-        </Row>
+      <Col span={24} className={'text-center'}>
+        <AuthHeader targetLocation={'login'} />
         <Row>
           <Col
             className={style.authForm}
@@ -43,25 +38,14 @@ const Register = () => {
           >
             <Row className="text-center">
               <Col span={24}>
-                <h1 className={style.headingTitle}>
-                  Δημιουρήστε έναν λογαριασμό{" "}
-                </h1>
+                <h1 className={style.headingTitle}>Δημιουρήστε έναν λογαριασμό </h1>
               </Col>
             </Row>
             <div className={style.slideContainer} ref={sliderRef}>
-              <CSSTransition
-                appear
-                timeout={600}
-                in={initView}
-                classNames="swapViews"
-              >
+              <CSSTransition appear timeout={600} in={initView} classNames="swapViews">
                 <RegisterEmail swapView={swapView} setMail={setMail} />
               </CSSTransition>
-              <CSSTransition
-                timeout={900}
-                in={!initView}
-                classNames={"swapViews"}
-              >
+              <CSSTransition timeout={900} in={!initView} classNames={'swapViews'}>
                 <RegisterInfo initView={initView} mail={mail} />
               </CSSTransition>
             </div>

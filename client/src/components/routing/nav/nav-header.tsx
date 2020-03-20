@@ -1,6 +1,6 @@
 import React from "react";
 import { Layout, Menu } from "antd";
-import useIsInAuth from "../../../hooks/is-in-auth";
+import useIsInAuth from "../../../hooks/use-is-in-auth";
 
 const NavHeader = () => {
   const { Header } = Layout;
