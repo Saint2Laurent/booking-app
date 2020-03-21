@@ -9,7 +9,7 @@ type User {
 
 type Query {
   users: [User]
-  user(id: ID!): User
+  user(id: ID, email: String, isGoogle: Boolean, googleID: String): User
   isUserRegistered(email: String!): Boolean
 }
 

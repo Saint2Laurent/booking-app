@@ -2,23 +2,26 @@ import { getModelForClass } from "@typegoose/typegoose";
 import { User } from "../models/User";
 const userModel = getModelForClass(User);
 
-interface data {
+interface Data {
   _: any;
-  args: any;
+  args: User;
 }
 
 export default {
   Query: {
-    users: {}
+    users: async () => {
+      return await userModel.find();
+    },
+
+    user(_: any, args: any) {}
   },
 
   Mutation: {
-    addUser: (_: any, args: User) => {
-      console.log("***");
-      const newUser = userModel.create({
+    addUser: async (_: any, args: User) => {
+      const newUser = await userModel.create({
         ...args
       });
-      return newUser;
+      return newUser; // add .save()
     }
   }
 };
