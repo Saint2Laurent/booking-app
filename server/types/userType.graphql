@@ -1,6 +1,7 @@
 type User {
-  id: ID!
+  id: ID
   fullname: String
+  password: String
   email: String
   isGoogle: Boolean
   googleID: String
@@ -14,9 +15,10 @@ type Query {
 
 type Mutation {
   addUser(
-    fullname: String!
-    email: String!
-    isGoogle: Boolean!
+    fullname: String
+    password: String
+    email: String
+    isGoogle: Boolean
     googleID: String
   ): User
 }
