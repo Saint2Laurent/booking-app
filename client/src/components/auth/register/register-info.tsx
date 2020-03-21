@@ -1,28 +1,25 @@
-import React, { useEffect, useRef, useState } from "react";
-import style from "../auth.module.scss";
-import { Form, Input, Button, Row, Col } from "antd";
-import "@ant-design/compatible/assets/index.css";
-import googleIcon from "../../../assets/images/icon-google.svg";
-import { PasswordInput } from "antd-password-input-strength";
+import React, { useEffect, useRef, useState } from 'react';
+import style from '../auth.module.scss';
+import { Form, Input, Button, Row, Col } from 'antd';
+import '@ant-design/compatible/assets/index.css';
+import googleIcon from '../../../assets/images/icon-google.svg';
+import { PasswordInput } from 'antd-password-input-strength';
 import {
   isFullNameValid,
   isPasswordValid,
   isAccountValid,
   isMailValid
-} from "../../../../../common/validators/account-validator";
-import ReCAPTCHA from "react-google-recaptcha";
-import { useMailValidator } from "../use-mail-validators";
-import { isEmpty } from "../../../../../common/utils/isEmpty";
+} from '../../../../../common/validators/account-validator';
+import ReCAPTCHA from 'react-google-recaptcha';
+import { isEmpty } from '../../../../../common/utils/isEmpty';
+import { useMailValidator } from '../../../hooks/use-mail-validators';
 
 interface RegisterInfoProps {
   mail: string;
   initView: boolean;
 }
 
-const RegisterInfo: React.FC<RegisterInfoProps> = ({
-  mail,
-  initView
-}: RegisterInfoProps) => {
+const RegisterInfo: React.FC<RegisterInfoProps> = ({ mail, initView }: RegisterInfoProps) => {
   const recaptchaRef: any = React.createRef<ReCAPTCHA>();
   const [form] = Form.useForm();
   const fullNameRef: any = useRef();
@@ -30,11 +27,11 @@ const RegisterInfo: React.FC<RegisterInfoProps> = ({
   const finished = () => {};
 
   const [validationResponse, setEmail] = useMailValidator();
-  const [fullName, setFullName] = useState("");
-  const [password, setPassword] = useState("");
+  const [fullName, setFullName] = useState('');
+  const [password, setPassword] = useState('');
 
   useEffect(() => {
-    console.log("---");
+    console.log('---');
     if (initView) {
       setTimeout(() => {
         if (!isEmpty(mail)) {
@@ -46,35 +43,27 @@ const RegisterInfo: React.FC<RegisterInfoProps> = ({
   }, [mail]);
 
   const onMailChange = () => {
-    setEmail(form.getFieldValue("mail"));
+    setEmail(form.getFieldValue('mail'));
   };
 
   const onPasswordChange = () => {
-    setPassword(form.getFieldValue("password"));
+    setPassword(form.getFieldValue('password'));
   };
 
   const onFullNameChange = () => {
-    setFullName(form.getFieldValue("fullName"));
+    setFullName(form.getFieldValue('fullName'));
   };
 
   return (
-    <Col span={24} className={"text-left p-1 mt-4"}>
+    <Col span={24} className={'text-left p-1 mt-4'}>
       <Form form={form} onFinish={finished}>
         <Row>
           <Col span={24}>
             <Form.Item
               name="mail"
               hasFeedback
-              validateStatus={
-                form.isFieldTouched("mail")
-                  ? validationResponse.formValidationStatus
-                  : ""
-              }
-              extra={
-                form.isFieldTouched("mail")
-                  ? validationResponse.errorMessage
-                  : ""
-              }
+              validateStatus={form.isFieldTouched('mail') ? validationResponse.formValidationStatus : ''}
+              extra={form.isFieldTouched('mail') ? validationResponse.errorMessage : ''}
             >
               <Input onChange={onMailChange} placeholder="Λογαριασμός email" />
             </Form.Item>
@@ -87,22 +76,15 @@ const RegisterInfo: React.FC<RegisterInfoProps> = ({
               name="fullName"
               hasFeedback
               validateStatus={
-                form.isFieldTouched("fullName")
-                  ? isFullNameValid(form.getFieldValue("fullName"))
-                      .formValidationStatus
-                  : ""
+                form.isFieldTouched('fullName')
+                  ? isFullNameValid(form.getFieldValue('fullName')).formValidationStatus
+                  : ''
               }
               extra={
-                form.isFieldTouched("fullName")
-                  ? isFullNameValid(form.getFieldValue("fullName")).errorMessage
-                  : ""
+                form.isFieldTouched('fullName') ? isFullNameValid(form.getFieldValue('fullName')).errorMessage : ''
               }
             >
-              <Input
-                ref={fullNameRef}
-                onChange={onFullNameChange}
-                placeholder="Πλήρες όνομα"
-              />
+              <Input ref={fullNameRef} onChange={onFullNameChange} placeholder="Πλήρες όνομα" />
             </Form.Item>
           </Col>
         </Row>
@@ -111,19 +93,16 @@ const RegisterInfo: React.FC<RegisterInfoProps> = ({
           <Col span={24}>
             <span>Κωδικος:</span>
             <Form.Item
-              className={"auth-password-input"}
-              name={"password"}
+              className={'auth-password-input'}
+              name={'password'}
               hasFeedback
               validateStatus={
-                form.isFieldTouched("password")
-                  ? isPasswordValid(form.getFieldValue("password"))
-                      .formValidationStatus
-                  : ""
+                form.isFieldTouched('password')
+                  ? isPasswordValid(form.getFieldValue('password')).formValidationStatus
+                  : ''
               }
               extra={
-                form.isFieldTouched("password")
-                  ? isPasswordValid(form.getFieldValue("password")).errorMessage
-                  : ""
+                form.isFieldTouched('password') ? isPasswordValid(form.getFieldValue('password')).errorMessage : ''
               }
             >
               <PasswordInput
@@ -132,14 +111,8 @@ const RegisterInfo: React.FC<RegisterInfoProps> = ({
                   height: 4,
                   alwaysVisible: true,
                   colorScheme: {
-                    levels: [
-                      "#ff4033",
-                      "#fe7439",
-                      "#59eb29",
-                      "#5df32b",
-                      "#67ff2f"
-                    ],
-                    noLevel: "lightgrey"
+                    levels: ['#ff4033', '#fe7439', '#59eb29', '#5df32b', '#67ff2f'],
+                    noLevel: 'lightgrey'
                   }
                 }}
               />
@@ -149,23 +122,23 @@ const RegisterInfo: React.FC<RegisterInfoProps> = ({
 
         <Row className="mt-5">
           <Button
-            htmlType={"submit"}
+            htmlType={'submit'}
             block
             className={`${style.inputButton} auth-disabled`}
             disabled={
               !isAccountValid({
-                mail: form.getFieldValue("mail"),
-                password: form.getFieldValue("password"),
-                fullName: form.getFieldValue("fullName")
+                mail: form.getFieldValue('mail'),
+                password: form.getFieldValue('password'),
+                fullName: form.getFieldValue('fullName')
               })
             }
-            type={"primary"}
+            type={'primary'}
           >
             Σύνεχεια
           </Button>
         </Row>
 
-        <Row className={"text-center"}>
+        <Row className={'text-center'}>
           <Col span={24}>Ή</Col>
         </Row>
 
@@ -176,21 +149,16 @@ const RegisterInfo: React.FC<RegisterInfoProps> = ({
           </Button>
         </Row>
 
-        <Row className={"mt-4 text-smaller text-center"}>
+        <Row className={'mt-4 text-smaller text-center'}>
           <Col span={24}>
             <hr />
             <div className="mt-2">
-              Έχετε ηδη λογαριασμό;{" "}
-              <span className={"light-sky-blue"}>Σύνδεθειτέ</span>
+              Έχετε ηδη λογαριασμό; <span className={'light-sky-blue'}>Σύνδεθειτέ</span>
             </div>
           </Col>
         </Row>
 
-        <ReCAPTCHA
-          ref={recaptchaRef}
-          size="invisible"
-          sitekey="6LfulNMUAAAAAEBEZb336ALlHtTRRO5a85Trf9n_"
-        />
+        <ReCAPTCHA ref={recaptchaRef} size="invisible" sitekey="6LfulNMUAAAAAEBEZb336ALlHtTRRO5a85Trf9n_" />
       </Form>
     </Col>
   );
