@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Layout, Menu } from 'antd';
 import SubMenu from 'antd/es/menu/SubMenu';
 import useIsInAuth from '../../../hooks/use-is-in-auth';
@@ -6,11 +6,18 @@ import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/
 
 const NavSider = () => {
   const [isInAuth] = useIsInAuth();
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const { SubMenu } = Menu;
   const { Sider } = Layout;
 
   return (
-    <Sider width={200} className="site-layout-background" style={{ display: isInAuth ? 'none' : 'block' }}>
+    <Sider
+      collapsible
+      collapsed={isCollapsed}
+      width={200}
+      className="site-layout-background"
+      style={{ display: isInAuth ? 'none' : 'block' }}
+    >
       <Menu
         mode="inline"
         defaultSelectedKeys={['1']}
@@ -26,7 +33,9 @@ const NavSider = () => {
             </span>
           }
         >
-          <Menu.Item key="1">option1</Menu.Item>
+          <Menu.Item onClick={() => setIsCollapsed(!isCollapsed)} key="1">
+            option1
+          </Menu.Item>
           <Menu.Item key="2">option2</Menu.Item>
           <Menu.Item key="3">option3</Menu.Item>
           <Menu.Item key="4">option4</Menu.Item>

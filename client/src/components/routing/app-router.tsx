@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Route, Switch, withRouter, useHistory } from 'react-router-dom';
 import Login from '../auth/login/login';
 import Register from '../auth/register/register';
-import './router.scss';
+import './nav.module.scss';
 import { Layout, Menu } from 'antd';
 
 import NavHeader from './nav/nav-header';
