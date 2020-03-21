@@ -1,27 +1,24 @@
 import { getModelForClass } from "@typegoose/typegoose";
 import { User } from "../models/User";
-const user = getModelForClass(User);
+const userModel = getModelForClass(User);
+
+interface data {
+  _: any;
+  args: any;
+}
 
 export default {
   Query: {
-    // users: {
-    //   type: [user],
-    //   async resolve(_, args) {
-    //     console.log("hiiiitt!!");
-    //     return user.find();
-    //   }
-    // }
+    users: {}
   },
 
   Mutation: {
-    addUser: (
-      fullname: String,
-      password: String,
-      email: String,
-      isGoogle: Boolean,
-      googleID: String
-    ) => {
-      console.log("yyyyaaaaaayy!");
+    addUser: (_: any, args: User) => {
+      console.log("***");
+      const newUser = userModel.create({
+        ...args
+      });
+      return newUser;
     }
   }
 };
