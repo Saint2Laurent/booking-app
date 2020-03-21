@@ -9,8 +9,10 @@ interface AuthState {
 export const slice = createSlice({
     name: 'auth',
     initialState: {
-        isLoggedIn: false,
-        user: {}
+        isLoggedIn: true,
+        user: {
+            profileUrl: 'https://lh3.googleusercontent.com/a-/AOh14GiwM_y4MyoxBsEApgd9Qf2__s3mEL74mgbFERZA=s96-c'
+        }
     },
     reducers: {
         login: (state, action) => {
