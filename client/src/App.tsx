@@ -9,7 +9,7 @@ const App = () => {
   let isOnline = useOnlineStatus();
 
   useEffect(() => {
-    console.log(isOnline);
+    // console.log(isOnline);
   }, [isOnline]);
 
   return (

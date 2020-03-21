@@ -15,7 +15,7 @@ const getImageDiv = (auth: any) => {
     return (
       <div className={style.profileWrapper}>
         <svg className={style.svgImage}>
-          <Text verticalAnchor="start" y={5} x={0} fontSize={'1.9rem'}>
+          <Text verticalAnchor="start" y={4} x={0} fontSize={'1.5rem'}>
             YL
           </Text>
         </svg>

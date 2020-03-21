@@ -10,11 +10,14 @@ import NavSider from './nav/nav-sider';
 import { useSelector } from 'react-redux';
 import { selectAuth } from '../../store/authSlice';
 import { BrowserRouter as Router } from 'react-router-dom';
+import Dashboard from '../dashboard/dashboard';
+import useIsInAuth from '../../hooks/use-is-in-auth';
 
-const AppRouter = (props: any) => {
+const AppRouter = () => {
   const { Content } = Layout;
   const { auth } = useSelector(selectAuth);
   let history = useHistory();
+  const [isInAuth] = useIsInAuth();
 
   useEffect(() => {
     console.log(history);
@@ -25,9 +28,9 @@ const AppRouter = (props: any) => {
 
   return (
     <Layout style={{ height: '100vh' }}>
-      <NavHeader />
+      {!isInAuth && <NavHeader />}
       <Layout>
-        <NavSider />
+        {!isInAuth && <NavSider />}
         <Layout>
           <Content className="site-layout-background">
             <Switch>
@@ -36,6 +39,9 @@ const AppRouter = (props: any) => {
               </Route>
               <Route path="/auth/register">
                 <Register />
+              </Route>
+              <Route path="/" exact>
+                <Dashboard />
               </Route>
             </Switch>
           </Content>
