@@ -1,5 +1,5 @@
-import { ErrorFormat } from '../../common/types/entity/user';
-import { RegistrationInput, LoginInput, RegistrationResponse, LoginResponse } from '../../common/types/api/auth';
+import { Errors} from '../../common/types/misc/errors';
+import { RegistrationPayload, RegistrationResponse, } from '../../common/types/api/auth/register';
 import { getModelForClass } from '@typegoose/typegoose';
 import { User } from '../models/User';
 const userModel = getModelForClass(User);
@@ -14,7 +14,7 @@ export default {
   },
 
   Mutation: {
-    addUser: async (_: any, args: RegistrationInput) => {
+    addUser: async (_: any, args: RegistrationPayload) => {
       const newUser = await userModel.create({
         ...args
       });
@@ -23,7 +23,7 @@ export default {
       return {
         token: 'tobegenerated',
         success: true,
-        errors: [] as ErrorFormat[]
+        errors: {} as Errors
       };
     }
   }

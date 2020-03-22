@@ -1,6 +1,11 @@
 import { isEmpty } from '../utils/isEmpty';
 import { ValidationResponse } from '../types/misc/validation-response';
-import validator from 'validator';
+import { isMainThread } from 'worker_threads';
+
+function isEmail (mail:string){
+  return new RegExp("^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$").test(mail)
+}
+
 
 export interface RegistrationAccount {
   mail: string;
@@ -17,7 +22,7 @@ export const isMailValid = (mail: string): ValidationResponse => {
     };
   }
 
-  if (!validator.isEmail(mail)) {
+  if (!isEmail(mail)) {
     return {
       isValid: false,
       errorMessage: 'Η διευθυνσή email δεν εχεί σωστη μορφή',
