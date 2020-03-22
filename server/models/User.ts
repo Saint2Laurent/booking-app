@@ -1,5 +1,5 @@
-import { prop } from "@typegoose/typegoose";
-import * as validate from "../../common/validators/account-validator";
+import { prop } from '@typegoose/typegoose';
+import * as validate from '../../common/validators/account-validator';
 const { isFullNameValid, isMailValid, isPasswordValid } = validate;
 
 export class User {

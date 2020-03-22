@@ -1,4 +1,4 @@
-import { getModelForClass } from "@typegoose/typegoose";
+import { getModelForClass } from '@typegoose/typegoose';
 
 export default {
   Query: {
@@ -7,7 +7,7 @@ export default {
   },
   Mutation: {
     addClient: () => {
-      console.log("hitted addcleint router");
+      console.log('hitted addcleint router');
     }
   }
 };
