@@ -1,28 +1,37 @@
-import {Errors} from "./errors";
-
-
-// @Register types
-
-export interface RegistrationPayload {
-  mail: string;
-  password: string;
-  fullName: string;
+import { ErrorFormat } from './account';
+// INPUTS
+//
+export interface RegistrationInput {
+  fullname: String;
+  email: String;
+  password: String;
+  isGoogle: Boolean;
+  googleID: String;
 }
 
-// Only googleTokenId is sufficient as backend fetches
-// the rest of the info via the google API
-
-export interface GoogleRegistrationPayload{
-  googleTokenId: string;
+export interface LoginInput {
+  email: String;
+  password: String;
 }
 
-// If an account is registered throughout Google it doesnt require any mail confirmation
-// and the API auto log-in the client and responds with a login token
-// If the account is registered via email then success remains true and user
-// should get a confirmation mail in their inbox in order to validate their email
+export interface GoogleLoginInput {
+  googleID: String;
+}
+
+export interface GoogleRegistrationPayload {
+  googleIdToken: String;
+}
+
+// RESPONSES
+//
 
 export interface RegistrationResponse {
-  token: string;
-  success: boolean;
-  errors: Errors;
+  token: String;
+  success: Boolean;
+  errors: ErrorFormat[];
+}
+
+export interface LoginResponse {
+  token: String;
+  errors: ErrorFormat[];
 }

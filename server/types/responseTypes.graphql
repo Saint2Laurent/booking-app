@@ -1,0 +1,10 @@
+type ErrorFormat {
+  path: String
+  msg: String
+}
+
+type RegistrationResponse {
+  token: String
+  success: Boolean
+  errors: [ErrorFormat]
+}

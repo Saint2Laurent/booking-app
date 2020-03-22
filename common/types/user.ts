@@ -1,6 +1,6 @@
 // All the fields are optional due to the nature of GQL itself
 
-export type UserAccess = 'MASTER' | 'DESK' | 'STAFF' | 'CUSTOMER'
+export type UserAccess = 'MASTER' | 'DESK' | 'STAFF' | 'CUSTOMER';
 
 export interface User {
   id?: string;
