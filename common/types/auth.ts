@@ -1,13 +1,37 @@
-export interface RegistrationPayload{
-    email: string;
-    password: string;
+import { ErrorFormat } from "./account";
+// INPUTS
+//
+export interface RegistrationInput {
+  fullname: String;
+  email: String;
+  password: String;
+  isGoogle: Boolean;
+  googleID: String;
 }
 
-export interface GoogleRegistrationPayload{
-    googleIdToken: string
+export interface LoginInput {
+  email: String;
+  password: String;
 }
 
-export interface RegistrationResponse{
-    success: boolean,
-    errors: []
+export interface GoogleLoginInput {
+  googleID: String;
+}
+
+export interface GoogleRegistrationPayload {
+  googleIdToken: String;
+}
+
+// RESPONSES
+//
+
+export interface RegistrationResponse {
+  token: String;
+  success: Boolean;
+  errors: ErrorFormat[];
+}
+
+export interface LoginResponse {
+  token: String;
+  errors: ErrorFormat[];
 }
