@@ -1,12 +1,7 @@
-import { ErrorFormat } from "../../common/types/account";
-import {
-  RegistrationInput,
-  LoginInput,
-  RegistrationResponse,
-  LoginResponse
-} from "../../common/types/auth";
-import { getModelForClass } from "@typegoose/typegoose";
-import { User } from "../models/User";
+import { ErrorFormat } from '../../common/types/entity/user';
+import { RegistrationInput, LoginInput, RegistrationResponse, LoginResponse } from '../../common/types/api/auth';
+import { getModelForClass } from '@typegoose/typegoose';
+import { User } from '../models/User';
 const userModel = getModelForClass(User);
 
 export default {
@@ -26,7 +21,7 @@ export default {
       // await newUser.save();
 
       return {
-        token: "tobegenerated",
+        token: 'tobegenerated',
         success: true,
         errors: [] as ErrorFormat[]
       };
