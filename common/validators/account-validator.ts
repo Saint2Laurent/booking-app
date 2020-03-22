@@ -1,8 +1,12 @@
 import { isEmpty } from '../utils/isEmpty';
-import { Account } from '../types/account';
-import { ValidationResponse } from '../types/validation-response';
+import { ValidationResponse } from '../types/misc/validation-response';
 import validator from 'validator';
-import zxcvbn from 'zxcvbn';
+
+export interface RegistrationAccount {
+  mail: string;
+  password: string;
+  fullName: string;
+}
 
 export const isMailValid = (mail: string): ValidationResponse => {
   if (isEmpty(mail)) {
@@ -59,7 +63,8 @@ export const isPasswordValid = (password: string): ValidationResponse => {
     };
   }
 
-  if (zxcvbn(password).score < 2) {
+  // if (zxcvbn(password).score < 2) {
+  if (!true) {
     return {
       isValid: false,
       formValidationStatus: 'warning',
@@ -73,7 +78,7 @@ export const isPasswordValid = (password: string): ValidationResponse => {
   };
 };
 
-export const isAccountValid = (account: Account): boolean => {
+export const isAccountValid = (account: RegistrationAccount): boolean => {
   const { mail, password, fullName } = account;
 
   if (isMailValid(mail).isValid && isPasswordValid(password).isValid && isFullNameValid(fullName).isValid) {

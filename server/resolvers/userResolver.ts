@@ -1,5 +1,5 @@
-import { ErrorFormat } from '../../common/types/account';
-import { RegistrationInput, LoginInput, RegistrationResponse, LoginResponse } from '../../common/types/auth';
+import { ErrorFormat } from '../../common/types/entity/user';
+import { RegistrationInput, LoginInput, RegistrationResponse, LoginResponse } from '../../common/types/api/auth';
 import { getModelForClass } from '@typegoose/typegoose';
 import { User } from '../models/User';
 const userModel = getModelForClass(User);
