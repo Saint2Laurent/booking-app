@@ -1,11 +1,13 @@
+import { ErrorFormat } from "../../common/types/account";
+import {
+  RegistrationInput,
+  LoginInput,
+  RegistrationResponse,
+  LoginResponse
+} from "../../common/types/auth";
 import { getModelForClass } from "@typegoose/typegoose";
 import { User } from "../models/User";
 const userModel = getModelForClass(User);
-
-interface Data {
-  _: any;
-  args: User;
-}
 
 export default {
   Query: {
@@ -17,11 +19,17 @@ export default {
   },
 
   Mutation: {
-    addUser: async (_: any, args: User) => {
+    addUser: async (_: any, args: RegistrationInput) => {
       const newUser = await userModel.create({
         ...args
       });
-      return newUser; // add .save()
+      // await newUser.save();
+
+      return {
+        token: "tobegenerated",
+        success: true,
+        errors: [] as ErrorFormat[]
+      };
     }
   }
 };

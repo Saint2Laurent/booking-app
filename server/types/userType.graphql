@@ -20,5 +20,5 @@ type Mutation {
     email: String
     isGoogle: Boolean
     googleID: String
-  ): User
+  ): RegistrationResponse
 }
