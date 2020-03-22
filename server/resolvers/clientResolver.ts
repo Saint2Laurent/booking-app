@@ -1,12 +1,13 @@
+import { getModelForClass } from "@typegoose/typegoose";
+
 export default {
   Query: {
     clients: () => {},
     client: () => {}
   },
   Mutation: {
-    addClient: () => {}
-  },
-  Client: {
-    products: () => {}
+    addClient: () => {
+      console.log("hitted addcleint router");
+    }
   }
 };

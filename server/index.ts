@@ -25,6 +25,6 @@ const schema = makeExecutableSchema({
   })
     .listen()
     .then(({ url }) => {
-      console.log(`🚀 Server ready at ${url}`);
+      console.log(`🚀 --- ${url}`);
     });
 })();
