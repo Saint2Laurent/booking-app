@@ -4,10 +4,10 @@ const { isFullNameValid, isMailValid, isPasswordValid } = validate;
 
 export class User {
   @prop({ validate: fullname => isFullNameValid(fullname).isValid })
-  fullname: String;
+  fullName: String;
 
-  @prop({ validate: email => isMailValid(email).isValid })
-  email: String;
+  @prop({ validate: mail => isMailValid(mail).isValid })
+  mail: String;
 
   @prop({ validate: password => isPasswordValid(password).isValid })
   password: String;

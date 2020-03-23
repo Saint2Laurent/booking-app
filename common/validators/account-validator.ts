@@ -1,9 +1,9 @@
 import { isEmpty } from '../utils/isEmpty';
 import { ValidationResponse } from '../types/misc/validation-response';
-import { isMainThread } from 'worker_threads';
 
-function isEmail (mail:string){
-  return new RegExp("^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$").test(mail)
+
+function isEmail (mail: string){
+  return (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(mail)
 }
 
 

@@ -1,23 +1,23 @@
 type User {
   id: ID
-  fullname: String
+  fullName: String
   password: String
-  email: String
+  mail: String
   isGoogle: Boolean
   googleID: String
 }
 
 type Query {
   users: [User]
-  user(id: ID, email: String, isGoogle: Boolean, googleID: String): User
+  user(id: ID, mail: String, isGoogle: Boolean, googleID: String): User
   isUserRegistered(email: String!): Boolean
 }
 
 type Mutation {
   addUser(
-    fullname: String
+    fullName: String
     password: String
-    email: String
+    mail: String
     isGoogle: Boolean
     googleID: String
   ): RegistrationResponse

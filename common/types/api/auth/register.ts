@@ -1,9 +1,9 @@
 import { Errors } from '../../misc/errors';
 
 export interface RegistrationPayload {
+  fullName: string;
   mail: string;
   password: string;
-  fullName: string;
 }
 
 export interface GoogleRegistrationPayload {
