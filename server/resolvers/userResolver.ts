@@ -2,9 +2,20 @@ import { Errors} from '../../common/types/misc/errors';
 import { RegistrationPayload, RegistrationResponse, } from '../../common/types/api/auth/register';
 import { getModelForClass } from '@typegoose/typegoose';
 import { User } from '../models/User';
-const userModel = getModelForClass(User);
 import bcryptjs from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import * as dotenv from 'dotenv';
+const secret = dotenv.config().parsed.SECRET;
 
+const userModel = getModelForClass(User);
+
+
+
+
+// generating Tokens
+const tokenGen = (payload: object): string=> {
+  return jwt.sign(payload, secret, {expiresIn:'1h'})
+}
 
 export default {
   Query: {
@@ -29,13 +40,15 @@ export default {
         }
       }
       const newUser = await userModel.create({
-        ...args
+        ...args, password: await  bcryptjs.hash(args.password, 10)  
       });
-      newUser.password = await  bcryptjs.hash(args.password, 10);
-      // await newUser.save();
+
+      const token = tokenGen({...newUser})
+      
+      
 
       return {
-        token: newUser.password,
+        token,
         success: true,
         errors: [] as Errors
       };

@@ -1,6 +1,6 @@
 enum Path {
   email
-  register
+  fullName
   password
 }
 
