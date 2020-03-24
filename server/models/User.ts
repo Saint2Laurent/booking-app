@@ -1,6 +1,7 @@
 import { prop } from '@typegoose/typegoose';
 import * as validate from '../../common/validators/account-validator';
 const { isFullNameValid, isMailValid, isPasswordValid } = validate;
+import {UserRole} from '../../common/types/entity/user';
 
 export class User {
   @prop({ validate: fullname => isFullNameValid(fullname).isValid })
@@ -19,5 +20,8 @@ export class User {
   googleID: String;
 
   @prop({ default: Date.now() })
-  date: Date;
+  createdAt: Date;
+
+  @prop({default: 'MASTER'})
+  role: UserRole;
 }

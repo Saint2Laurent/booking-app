@@ -5,12 +5,21 @@ type User {
   mail: String
   isGoogle: Boolean
   googleID: String
+  role: UserRole
+  createdAt: String
+}
+
+enum UserRole { 
+  MASTER 
+  DESK 
+  STAFF
+  CUSTOMER
 }
 
 type Query {
   users: [User]
-  user(id: ID, mail: String, isGoogle: Boolean, googleID: String): User
-  isUserRegistered(email: String!): Boolean
+  user(id: ID, mail: String, isGoogle: Boolean, googleID: String, role: UserRole): User
+  isUserRegistered(mail: String!): Boolean
 }
 
 type Mutation {
@@ -20,5 +29,6 @@ type Mutation {
     mail: String
     isGoogle: Boolean
     googleID: String
+    role: UserRole
   ): RegistrationResponse
 }
