@@ -11,19 +11,15 @@ export interface GoogleRegistrationPayload {
 export interface RegistrationResponse {
   token?: string;
   success: boolean;
-  e
-  .
-  3
-  rrors?: RegistrationErrors;
-0.2☺10
-
+  errors?: RegistrationErrors;
+}
 export interface GoogleRegistrationResponse {
   success: boolean;
   token: string;
   errors?: GoogleRegistrationErrors;
 }
 
-  export interface RegistrationErrors {
+export interface RegistrationErrors {
   mailInvalid?: boolean;
   passwordInvalid?: boolean;
   fullNameInvalid?: boolean;
