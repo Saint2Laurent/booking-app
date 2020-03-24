@@ -23,7 +23,12 @@ export default {
       return await userModel.find();
     },
 
-    user(_: any, args: any) {}
+    user(_: any, args: any) {},
+
+    isUserRegistered: async(_:any, args: any) => {
+      if (await userModel.findOne({mail: args.mail})) return true;
+      return false;
+    }
   },
 
   Mutation: {
@@ -43,10 +48,7 @@ export default {
         ...args, password: await  bcryptjs.hash(args.password, 10)  
       });
 
-      const token = tokenGen({...newUser})
-      
-      
-
+      const token = tokenGen({...newUser}) // return the ID of the user
       return {
         token,
         success: true,

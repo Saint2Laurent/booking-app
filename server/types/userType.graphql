@@ -19,7 +19,7 @@ enum UserRole {
 type Query {
   users: [User]
   user(id: ID, mail: String, isGoogle: Boolean, googleID: String, role: UserRole): User
-  isUserRegistered(email: String!): Boolean
+  isUserRegistered(mail: String!): Boolean
 }
 
 type Mutation {
