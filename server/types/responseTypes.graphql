@@ -1,7 +1,14 @@
-type ErrorFormat {
-  path: String
-  msg: String
+enum Path {
+  email
+  register
+  password
 }
+
+type ErrorFormat {
+  path: Path
+  message: String
+}
+
 
 type RegistrationResponse {
   token: String
