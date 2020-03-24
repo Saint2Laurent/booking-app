@@ -2,8 +2,12 @@ import { prop } from '@typegoose/typegoose';
 import * as validate from '../../common/validators/account-validator';
 const { isFullNameValid, isMailValid, isPasswordValid } = validate;
 import {UserRole} from '../../common/types/entity/user';
+import { isValidObjectId } from 'mongoose';
 
 export class User {
+  @prop(isValidObjectId)
+  id: string;
+
   @prop({ validate: fullname => isFullNameValid(fullname).isValid })
   fullName: String;
 
