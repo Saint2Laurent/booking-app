@@ -1,4 +1,9 @@
-import {GoogleRegistrationPayload, RegistrationPayload, RegistrationResponse} from "./register";
+import {
+    GoogleRegistrationPayload,
+    GoogleRegistrationResponse,
+    RegistrationPayload,
+    RegistrationResponse
+} from "./register";
 
 // Mutation
 // Register a user with email/password
@@ -11,4 +16,4 @@ declare type RegisterUser = (payload: RegistrationPayload) => RegistrationRespon
 // Only google token is suffice as auth data can be confirmed via the google API
 // If user gets succesfully registered server also logs him in and responds with the security token
 
-declare type GoogleRegisterUser = (payload: GoogleRegistrationPayload) => RegistrationResponse
+declare type GoogleRegisterUser = (payload: GoogleRegistrationPayload) => GoogleRegistrationResponse

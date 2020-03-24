@@ -1,18 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { MutableRefObject, RefObject, useEffect, useRef, useState } from 'react';
 import style from '../auth.module.scss';
 import { Form, Input, Button, Row, Col } from 'antd';
 import '@ant-design/compatible/assets/index.css';
 import googleIcon from '../../../assets/images/icon-google.svg';
 import { PasswordInput } from 'antd-password-input-strength';
-import {
-  isFullNameValid,
-  isPasswordValid,
-  isAccountValid,
-  isMailValid
-} from '../../../../../common/validators/account-validator';
+import { isFullNameValid, isPasswordValid, isAccountValid } from '../../../../../common/validators/account-validator';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { isEmpty } from '../../../../../common/utils/isEmpty';
 import { useMailValidator } from '../../../hooks/use-mail-validators';
+import { GoogleRegistrationErrors, RegistrationErrors } from '../../../../../common/types/misc/errors';
 
 interface RegisterInfoProps {
   mail: string;
@@ -20,25 +16,26 @@ interface RegisterInfoProps {
 }
 
 const RegisterInfo: React.FC<RegisterInfoProps> = ({ mail, initView }: RegisterInfoProps) => {
-  const recaptchaRef: any = React.createRef<ReCAPTCHA>();
+  const recaptchaRef: RefObject<ReCAPTCHA> = React.createRef<ReCAPTCHA>();
   const [form] = Form.useForm();
   const fullNameRef: any = useRef();
 
-  const finished = () => {};
+  useEffect(() => {}, []);
+
+  const finished = e => {
+    console.log(e);
+  };
 
   const [validationResponse, setEmail] = useMailValidator();
   const [fullName, setFullName] = useState('');
   const [password, setPassword] = useState('');
 
   useEffect(() => {
-    console.log('---');
     if (initView) {
-      setTimeout(() => {
-        if (!isEmpty(mail)) {
-          fullNameRef.current.focus();
-        }
-      }, 150);
       form.setFieldsValue({ mail });
+      if (!isEmpty(mail)) {
+        fullNameRef.current.focus();
+      }
     }
   }, [mail]);
 
@@ -122,6 +119,7 @@ const RegisterInfo: React.FC<RegisterInfoProps> = ({ mail, initView }: RegisterI
 
         <Row className="mt-5">
           <Button
+            loading
             htmlType={'submit'}
             block
             className={`${style.inputButton} auth-disabled`}
