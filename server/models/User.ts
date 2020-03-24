@@ -1,7 +1,7 @@
 import { prop } from '@typegoose/typegoose';
 import * as validate from '../../common/validators/account-validator';
 const { isFullNameValid, isMailValid, isPasswordValid } = validate;
-import {UserRole} from '../../common/types/entity/user';
+import { UserRole } from '../../common/types/entity/user';
 
 export class User {
   @prop({ validate: fullname => isFullNameValid(fullname).isValid })
@@ -22,6 +22,6 @@ export class User {
   @prop({ default: Date.now() })
   createdAt: Date;
 
-  @prop({default: 'MASTER'})
+  @prop({ default: 'MASTER' })
   role: UserRole;
 }
