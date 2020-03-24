@@ -1,11 +1,11 @@
 import { isEmpty } from '../utils/isEmpty';
 import { ValidationResponse } from '../types/misc/validation-response';
 
-
-function isEmail (mail: string){
-  return (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(mail)
+function isEmail(mail: string) {
+  return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+    mail
+  );
 }
-
 
 export interface RegistrationAccount {
   mail: string;
