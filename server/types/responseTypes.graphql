@@ -15,3 +15,9 @@ type RegistrationResponse {
   success: Boolean
   errors: [ErrorFormat]
 }
+
+type LoginResponse {
+  token: String
+  success: Boolean
+  errors: [ErrorFormat]
+}

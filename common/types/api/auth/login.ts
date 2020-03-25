@@ -1,16 +1,15 @@
 import { Errors } from '../../misc/errors';
 
-export interface RegistrationPayload {
-  fullName: string;
+export interface LoginPayload {
   mail: string;
   password: string;
 }
 
-export interface GoogleRegistrationPayload {
+export interface GoogleLoginPayload {
   googleTokenId: string;
 }
 
-export interface RegistrationResponse {
+export interface LoginResponse {
   token?: string;
   success: boolean;
   errors: Errors;

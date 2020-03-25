@@ -2,11 +2,9 @@ export type UserRole = 'MASTER' | 'DESK' | 'STAFF' | 'CUSTOMER';
 
 // the returned payload inside the token
 export interface UserPayload {
-  // __aware of the caps here
-  _id: String;
-  fullName: String; 
-  mail: String;
-  role: String;
+  
+  _id: string;
+ 
 }
 
 export interface User {
