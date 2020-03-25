@@ -22,19 +22,15 @@ const payloadGen = ({_id}: User): UserPayload => {
   return { _id }
 }
 
-const generateError = ({path, message}: Error):LoginResponse => {
-  return {
-    token: null,
-    success: false,
-    errors: [
-      {
-        path,
-        message
-      }
-    ]
-    
-  }
-}
+
+// deprecated
+// const generateErrors = (errors: Errors):Errors => {
+//     const errorsArray: Errors = [];
+//     errors.map((error)=> {
+//       errorsArray.push(error)
+//     });
+//     return errorsArray
+// }
 
 
 export default {
@@ -75,18 +71,32 @@ export default {
     },
 
     login: async (_:Parent, {mail, password}: LoginPayload) => {
-      const foundUser = await UserModel.findOne({mail});
-      if (foundUser) {
-        const passwordMatch =  await bcrypt.compare(password, foundUser.password.toString());
-        if (passwordMatch) {
-          return {
-            token:tokenGen(payloadGen(foundUser)), 
-            success:true, 
-            errors: [] as Errors
-          } 
+      try {
+        const foundUser = await UserModel.findOne({mail});
+        if (foundUser) {
+          const passwordMatch = await bcrypt.compare(password, foundUser.password.toString());
+          if (passwordMatch) {
+            return {
+              token:tokenGen(payloadGen(foundUser)), 
+              success:true, 
+              errors: [] as Errors
+            } 
+          };
+        }
+        return {
+          success:false,
+          errors: [{path:'Register', message:'Wrong Credentials'}]
         };
+      }catch{
+        return {
+          success:false,
+          errors:[{
+            path: 'DATABASE OR NETWORK',
+            message:'ERROR'
+          }]
+        }
       }
-      return generateError({path:'Register', message:'Wrong Credentials'});
+      
     }
   }
 }
