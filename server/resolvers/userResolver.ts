@@ -1,17 +1,23 @@
-import { Errors} from '../../common/types/misc/errors';
+import { Errors } from '../../common/types/misc/errors';
 import { RegistrationPayload } from '../../common/types/api/auth/register';
+import {UserPayload, Parent } from '../../common/types/entity/user';
 import { getModelForClass } from '@typegoose/typegoose';
 import { User } from '../models/User';
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import * as dotenv from 'dotenv';
 const secret = dotenv.config().parsed.SECRET;
-
 const UserModel = getModelForClass(User);
 
+
 // generating Tokens
-const tokenGen = (payload: object): string=> {
-  return jwt.sign(payload, secret, {expiresIn:'1h'})
+const tokenGen = (payload: UserPayload): string => {
+  return jwt.sign(payload, secret, {expiresIn:'1h'});
+}
+
+// generate Payload
+const payloadGen = ({_id, fullName, mail, role}: User): UserPayload => {
+  return { _id, fullName, mail, role}
 }
 
 
@@ -21,9 +27,7 @@ export default {
       return await UserModel.find();
     },
 
-    user(_: any, args: any) {},
-
-    isUserRegistered: async (_:any, {mail}:{
+    isUserRegistered: async (_:Parent, {mail}:{
       mail:string
     }) => {
       if (await UserModel.findOne({mail})) return true;
@@ -32,39 +36,20 @@ export default {
   },
 
   Mutation: {
-    addUser: async (_: any, args: RegistrationPayload) => {
-      const dupicate = await UserModel.findOne({mail: args.mail});
-      if (dupicate){
-        return {
-          token: null,
-          success: false,
-          errors: [{
-            path: 'email',
-            message: 'already exists'
-          }]
-        }
-      }
+    addUser: async (_: Parent, args: RegistrationPayload) => {
+      if (await UserModel.findOne({mail: args.mail})) throw new Error('ALREADY REGISTERED');
       try {
         const newUser = await UserModel.create({
-          ...args, password: await  bcryptjs.hash(args.password, 10)  
+          ...args, password: await bcryptjs.hash(args.password, 10)  
         });
-
-
-        const {_id, mail, fullName, role} = newUser;
-        return {
-          token: tokenGen({_id, mail, fullName, role}),
+        
+        return {  
+          token: tokenGen(payloadGen(newUser)),
           success: true,
           errors: [] as Errors
         }
       }catch {
-        return {
-          token: null,
-          success: false,
-          errors: [{
-            path: 'unknown',
-            message: 'Something was wrong! Try later.'
-          }] 
-        };
+         throw new Error('VALIDATION OR NETWORK ERROR');
       }
       
     }

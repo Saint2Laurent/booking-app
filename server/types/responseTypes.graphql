@@ -1,11 +1,11 @@
-enum Path {
-  email
-  fullName
-  password
-}
+# enum Path {
+#   email
+#   fullName
+#   password
+# }
 
 type ErrorFormat {
-  path: Path
+  path: String
   message: String
 }
 

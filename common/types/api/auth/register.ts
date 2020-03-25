@@ -15,3 +15,4 @@ export interface RegistrationResponse {
   success: string;
   errors: Errors;
 }
+
