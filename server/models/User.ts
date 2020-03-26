@@ -4,10 +4,12 @@ const { isFullNameValid, isMailValid, isPasswordValid } = validate;
 import { UserRole } from '../../common/types/entity/user';
 
 export class User {
-  @prop({ validate: fullname => isFullNameValid(fullname).isValid })
+  public _id: string;
+
+  @prop({ validate: fullName => isFullNameValid(fullName).isValid })
   fullName: String;
 
-  @prop({ validate: mail => isMailValid(mail).isValid })
+  @prop({ validate: mail => isMailValid(mail).isValid , unique: true})
   mail: String;
 
   @prop({ validate: password => isPasswordValid(password).isValid })

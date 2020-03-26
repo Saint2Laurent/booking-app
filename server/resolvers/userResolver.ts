@@ -2,12 +2,18 @@ import { Errors } from '../../common/types/misc/errors';
 import { RegistrationPayload, RegistrationResponse } from '../../common/types/api/auth/register';
 import { getModelForClass } from '@typegoose/typegoose';
 import { User } from '../models/User';
-import bcryptjs from 'bcryptjs';
+
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import * as dotenv from 'dotenv';
 const secret = dotenv.config().parsed.SECRET;
+const UserModel = getModelForClass(User);
 
-const userModel = getModelForClass(User);
+
+// generating Tokens
+const tokenGen = (payload: UserPayload): string => {
+  return jwt.sign(payload, secret, {expiresIn:'1h'});
+}
 
 // generating Tokens
 const tokenGen = (payload: object): string => {
@@ -17,7 +23,11 @@ const tokenGen = (payload: object): string => {
 export default {
   Query: {
     users: async () => {
-      return await userModel.find();
+      try{
+        return await UserModel.find();  
+      }catch{
+        throw new Error('Ωχχχ, κάτι πήγε στραβά...')
+      }
     },
 
     user(_: any, args: any) {},
@@ -56,4 +66,4 @@ export default {
       };
     }
   }
-};
+}

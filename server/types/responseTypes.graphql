@@ -1,16 +1,22 @@
-enum Path {
-  email
-  fullName
-  password
-}
+# enum Path {
+#   email
+#   fullName
+#   password
+# }
 
 type ErrorFormat {
-  path: Path
+  path: String
   message: String
 }
 
 
 type RegistrationResponse {
+  token: String
+  success: Boolean
+  errors: [ErrorFormat]
+}
+
+type LoginResponse {
   token: String
   success: Boolean
   errors: [ErrorFormat]

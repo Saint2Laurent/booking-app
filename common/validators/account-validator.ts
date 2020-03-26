@@ -69,7 +69,7 @@ export const isPasswordValid = (password: string): ValidationResponse => {
   }
 
   // if (zxcvbn(password).score < 2) {
-  if (!true) {
+  if (password.length < 5 ) {
     return {
       isValid: false,
       formValidationStatus: 'warning',

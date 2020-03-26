@@ -30,3 +30,4 @@ export interface RegistrationErrors {
 export interface GoogleRegistrationErrors {
   tokenInvalid?: boolean;
 }
+

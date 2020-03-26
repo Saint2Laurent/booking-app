@@ -31,4 +31,6 @@ type Mutation {
     googleID: String
     role: UserRole
   ): RegistrationResponse
+
+  login(mail: String, password: String) : LoginResponse
 }
