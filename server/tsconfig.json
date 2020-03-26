@@ -23,6 +23,6 @@
     "baseUrl": "."
   },
   "exclude": ["node_modules"],
-  // "include": ["./index.ts"],
+  // "include": ["./loadTypes.ts"],
   
 }

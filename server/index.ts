@@ -2,8 +2,8 @@ import { ApolloServer } from 'apollo-server';
 import mongoose from 'mongoose';
 import * as dotenv from 'dotenv';
 import { makeExecutableSchema } from 'graphql-tools';
-import { resolvers } from './resolvers/index';
-import { typeDefs } from './types/index';
+import { resolvers } from './modules/auth/auth';
+import { typeDefs } from './types/loadTypes';
 
 const db = dotenv.config().parsed.DB_STRING;
 const schema = makeExecutableSchema({
@@ -12,7 +12,7 @@ const schema = makeExecutableSchema({
 });
 
 (async () => {
-  await mongoose
+    await mongoose
     .connect(db, {
       useCreateIndex: true,
       useUnifiedTopology: true,
@@ -20,11 +20,13 @@ const schema = makeExecutableSchema({
     })
     .then(() => console.log('Connected to DB'))
     .catch(e => console.log(e));
-  await new ApolloServer({
-    schema
-  })
+
+    await new ApolloServer({
+        schema
+      })
     .listen()
     .then(({ url }) => {
       console.log(`🚀 --- ${url}`);
     });
+
 })();

@@ -1,15 +1,16 @@
 import { mergeResolvers } from 'merge-graphql-schemas';
-import { login, addUser, queries } from './userResolvers/index';
+import {loginUser} from "../user/login";
+import {isUserRegistered, registerUser} from "./register/register";
 
 
 const resolversArray = [{
   Query: {
-    ...queries
+    isUserRegistered
   },
 
   Mutation: {
-    addUser,
-    login
+    registerUser,
+    loginUser
   }
 }]
 

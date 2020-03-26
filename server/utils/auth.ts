@@ -1,8 +1,8 @@
-import { UserPayload } from '../../common/types/entity/user';
-import { User } from '../models/User';
+import { UserPayload } from '../../shared/types/entity/user';
+import { User } from '../types/users/User';
 import * as dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
-import { Errors } from '../../common/types/misc/errors';
+import { Errors } from '../../shared/types/misc/errors';
 
 const secret = dotenv.config().parsed.SECRET;
 

@@ -1,0 +1,17 @@
+type User {
+    id: ID
+    fullName: String
+    password: String
+    mail: String
+    isGoogle: Boolean
+    googleID: String
+    role: UserRole
+    createdAt: String
+}
+
+enum UserRole {
+    MASTER
+    DESK
+    STAFF
+    CUSTOMER
+}

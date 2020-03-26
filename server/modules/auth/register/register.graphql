@@ -1,0 +1,24 @@
+type RegistrationErrors {
+    mailInUse: Boolean
+}
+
+type RegistrationResponse {
+    success: Boolean
+    token: Boolean
+    errors: RegistrationErrors
+}
+
+type Query {
+    isUserRegistered(mail: String!): Boolean
+}
+
+type Mutation {
+    registerUser(
+        fullName: String
+        password: String
+        mail: String
+        isGoogle: Boolean
+        googleID: String
+        role: UserRole
+    ): RegistrationResponse
+}

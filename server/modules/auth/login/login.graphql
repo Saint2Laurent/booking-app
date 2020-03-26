@@ -1,0 +1,18 @@
+type LoginErrors {
+    wrongPassword: Boolean
+    internalError: Boolean
+    needsComfirmation: Boolean
+}
+
+type LoginResponse {
+    success: Boolean
+    token: String
+    errors: LoginErrors
+}
+
+type Mutation {
+    loginUser(
+        mail: String,
+        password: String
+    ): LoginResponse
+}

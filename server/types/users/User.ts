@@ -1,7 +1,7 @@
 import { prop } from '@typegoose/typegoose';
-import * as validate from '../../common/validators/account-validator';
+import * as validate from '../../../shared/validators/account-validator';
 const { isFullNameValid, isMailValid, isPasswordValid } = validate;
-import {UserRole} from '../../common/types/entity/user';
+import {UserRole} from '../../../shared/types/entity/user';
 import * as yup from 'yup';
 
 export class User {

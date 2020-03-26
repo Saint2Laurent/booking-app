@@ -9,9 +9,9 @@ import {
   isPasswordValid,
   isAccountValid,
   isMailValid
-} from '../../../../../common/validators/account-validator';
+} from '../../../../../shared/validators/account-validator';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { isEmpty } from '../../../../../common/utils/isEmpty';
+import { isEmpty } from '../../../../../shared/utils/isEmpty';
 import { useMailValidator } from '../../../hooks/use-mail-validators';
 
 interface RegisterInfoProps {

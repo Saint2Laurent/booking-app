@@ -2,7 +2,7 @@ const { override, fixBabelImports, addLessLoader, removeModuleScopePlugin,babelI
 const path = require("path");
 
 module.exports = override(
-    babelInclude([path.resolve("src/"),path.resolve("../common")]),
+    babelInclude([path.resolve("src/"),path.resolve("../shared")]),
 
     removeModuleScopePlugin(),
     fixBabelImports('import', {

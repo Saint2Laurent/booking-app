@@ -1,5 +1,5 @@
-import { LoginResponse } from '../../common/types/api/auth/login';
-import { RegistrationResponse } from '../../common/types/api/auth/register';
+import { LoginResponse } from '../../shared/types/api/auth/login';
+import { RegistrationResponse } from '../../shared/types/api/auth/register';
 
 export type Response = LoginResponse | RegistrationResponse;
 
