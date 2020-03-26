@@ -1,8 +1,16 @@
-import path from 'path';
-import { fileLoader, mergeResolvers } from 'merge-graphql-schemas';
+import { mergeResolvers } from 'merge-graphql-schemas';
+import { login, addUser, queries } from './userResolvers/index';
 
-const resolversArray = fileLoader(path.join(__dirname, './'), {
-  extensions: ['.ts']
-});
+
+const resolversArray = [{
+  Query: {
+    ...queries
+  },
+
+  Mutation: {
+    addUser,
+    login
+  }
+}]
 
 export const resolvers = mergeResolvers(resolversArray);
