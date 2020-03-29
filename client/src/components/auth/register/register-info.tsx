@@ -4,11 +4,10 @@ import { Form, Input, Button, Row, Col } from 'antd';
 import '@ant-design/compatible/assets/index.css';
 import googleIcon from '../../../assets/images/icon-google.svg';
 import { PasswordInput } from 'antd-password-input-strength';
-import { isFullNameValid, isPasswordValid, isAccountValid } from '../../../../../common/validators/account-validator';
+import { isFullNameValid, isPasswordValid, isAccountValid } from '../../../../../shared/validators/account-validator';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { isEmpty } from '../../../../../common/utils/isEmpty';
+import { isEmpty } from '../../../../../shared/utils/isEmpty';
 import { useMailValidator } from '../../../hooks/use-mail-validators';
-import { GoogleRegistrationErrors, RegistrationErrors } from '../../../../../common/types/misc/errors';
 
 interface RegisterInfoProps {
   mail: string;

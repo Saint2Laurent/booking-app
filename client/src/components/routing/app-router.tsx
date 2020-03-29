@@ -17,14 +17,11 @@ const AppRouter = () => {
   const { Content } = Layout;
   const { auth } = useSelector(selectAuth);
   let history = useHistory();
-  const [isInAuth] = useIsInAuth();
+  const isInAuth = false;
 
   useEffect(() => {
-    console.log(history);
-    if (!auth.isLoggedIn && history.location.pathname.split('/')[1] !== 'auth') {
-      history.push('/auth/login');
-    }
-  }, [history.location.pathname]);
+    console.log(auth);
+  }, [auth.isAuthenticated]);
 
   return (
     <Layout style={{ height: '100vh' }}>

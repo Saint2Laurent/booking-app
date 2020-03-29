@@ -8,18 +8,18 @@ interface AuthState {
 export const slice = createSlice({
   name: 'auth',
   initialState: {
-    isLoggedIn: true,
+    isAuthenticated: true,
     user: {
       profileUrl: 'https://lh3.googleusercontent.com/a-/AOh14GiwM_y4MyoxBsEApgd9Qf2__s3mEL74mgbFERZA=s96-c'
     }
   },
   reducers: {
     login: (state, action) => {
-      state.isLoggedIn = true;
+      state.isAuthenticated = true;
       action.payload.history.push('/');
     },
     logout: state => {
-      state.isLoggedIn = false;
+      state.isAuthenticated = false;
     },
     setUser: (state, action) => {
       state.user = action.payload;

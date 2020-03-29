@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useResponsive } from '@umijs/hooks';
-import { nor } from '../../../common/utils/boole';
+import { nor } from '../../../shared/utils/boole';
 
 interface ResponsiveInfo {
   [key: string]: boolean;
