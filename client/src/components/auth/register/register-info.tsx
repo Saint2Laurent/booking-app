@@ -6,7 +6,7 @@ import googleIcon from '../../../assets/images/icon-google.svg';
 import { PasswordInput } from 'antd-password-input-strength';
 import { isFullNameValid, isPasswordValid, isAccountValid } from '../../../../../shared/validators/account-validator';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { isEmpty } from '../../../../../shared/utils/isEmpty';
+import { isEmpty } from '../../../../../shared/utils/is-empty';
 import { useMailValidator } from '../../../hooks/use-mail-validators';
 
 interface RegisterInfoProps {

@@ -1,4 +1,4 @@
-import { isEmpty } from '../utils/isEmpty';
+import { isEmpty } from '../utils/is-empty';
 import { ValidationResponse } from '../types/misc/validation-response';
 
 function isEmail(mail: string) {
@@ -68,7 +68,6 @@ export const isPasswordValid = (password: string): ValidationResponse => {
     };
   }
 
-  // if (zxcvbn(password).score < 2) {
   if (password.length < 5) {
     return {
       isValid: false,

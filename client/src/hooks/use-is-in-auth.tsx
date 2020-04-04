@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
-import { isEmpty } from '../../../shared/utils/isEmpty';
+import { isEmpty } from '../../../shared/utils/is-empty';
 
 const useIsInAuth = () => {
   const [isInAuth, setIsInAuth] = useState(false);
